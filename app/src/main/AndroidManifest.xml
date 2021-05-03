@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CapstoneGetherfolgTeam">
         <activity android:name=".ui.home.HomeActivity"></activity>
+        <activity android:name=".ui.scan.ScanActivity" />
         <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
