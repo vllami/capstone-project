@@ -1,25 +1,50 @@
-from .models import Job, user_profile, Image
+from .models import Job, user_profile, FileUpload, Category, Company, Image_company, Image_user
 from rest_framework import serializers
 from versatileimagefield.serializers import VersatileImageFieldSerializer
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+class Image_userSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image_user
+        fields = '__all__'
 
-    @classmethod
-    def get_token(cls, user):
-        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
 
-        # Add custom claims
-        token['username'] = user.username
-        return token
+class Image_companySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image_company
+        fields = '__all__'
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['pk', 'name']
+
+
+class CompanySerializer(serializers.ModelSerializer):
+    category = CategorySerializer(many=True)
+
+    class Meta:
+        model = Company
+        fields = ['pk', 'name', 'category']
+
+
+class FileUploadSerializer(serializers.HyperlinkedModelSerializer):
+    owner = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='id'
+    )
+
+    class Meta:
+        model = FileUpload
+        read_only_fields = ('created', 'datafile', 'owner')
 
 
 class JobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Job
-        fields = ['pk', 'name', 'category', 'desc_job', 'skil_req', 'company']
+        fields = ['pk', 'name', 'category', 'company', 'desc_job']
 
 
 class User_profileSerializer (serializers.ModelSerializer):

@@ -1,21 +1,47 @@
 from django.shortcuts import render
-from .serializers import JobSerializer, User_profileSerializer
-from .models import Job, user_profile
+from .serializers import JobSerializer, User_profileSerializer, Image_companySerializer, Image_userSerializer
+from .models import Job, user_profile, Image_company, Image_user
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .serializers import MyTokenObtainPairSerializer
 from rest_flex_fields import is_expanded
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth import get_user_model
 
 
-class MyObtainTokenPairView(TokenObtainPairView):
-    permission_classes = (AllowAny)
-    serializer_class = MyTokenObtainPairSerializer
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.viewsets import ModelViewSet
+from .models import FileUpload
+from .serializers import FileUploadSerializer
+
+
+class FileUploadViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = FileUpload.objects.all()
+    serializer_class = FileUploadSerializer
+    parser_classes = (MultiPartParser, FormParser,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user,
+                        datafile=self.request.data.get('datafile'))
 
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
+def Image_companyViewSet(request):
+    image = Image_company.objects.all()
+    serializer = Image_companySerializer(image, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def Image_userViewSet(request):
+    image = Image_user.objects.all()
+    serializer = Image_userSerializer(image, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
 def JobViewSet(request):
     job_listed = Job.objects.all()
     serializer = JobSerializer(job_listed, many=True)
