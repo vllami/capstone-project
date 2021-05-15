@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Capstone - Getherfolg Team</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="splash_title">Find !t</string>
+    <string name="suitable">   Suitable</string>
+    <string name="greet">Welcome to Suitable!</string>
+    <string name="scan">Screening CV</string>
+    <string name="article">Jobs Article</string>
+    <string name="desc_login">You can login or sign up to find your job</string>
+    <string name="login">login</string>
+    <string name="sign_up">Sign up</string>
 </resources>
