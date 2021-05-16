@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873198787731",
+    "project_id": "capstone---getherfolg-team",
+    "storage_bucket": "capstone---getherfolg-team.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873198787731:android:7b939a5a403c3a899a4166",
+        "android_client_info": {
+          "package_name": "team.getherfolg.capstone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873198787731-8l1lmou029hm6o5pd2j32fkcr9ari795.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvUGZCzdytMIaa2wC3yfQ1SJrzNezpqaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873198787731-8l1lmou029hm6o5pd2j32fkcr9ari795.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
