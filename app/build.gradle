@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -59,4 +60,9 @@ dependencies {
 
     //indicator
     implementation 'me.relex:circleindicator:2.1.6'
+
+    // firebase
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-firestore:23.0.0'
+
 }

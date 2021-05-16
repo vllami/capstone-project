@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import team.getherfolg.capstone.R
-import team.getherfolg.capstone.ui.home.HomeActivity
+import team.getherfolg.capstone.ui.register.auth.AuthenticationActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -22,7 +22,7 @@ class SplashScreenActivity : AppCompatActivity() {
         )
 
         Handler(mainLooper).postDelayed({
-            Intent(this, HomeActivity::class.java).also {
+            Intent(this, AuthenticationActivity::class.java).also {
                 startActivity(it)
             }
         }, delay)

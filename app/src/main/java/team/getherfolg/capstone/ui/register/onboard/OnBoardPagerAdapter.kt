@@ -1,11 +1,11 @@
-package team.getherfolg.capstone.ui.adapter
+package team.getherfolg.capstone.ui.register.onboard
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import team.getherfolg.capstone.ui.screen.FirstScreenFragment
-import team.getherfolg.capstone.ui.screen.SecondScreenFragment
-import team.getherfolg.capstone.ui.screen.ThirdScreenFragment
+import team.getherfolg.capstone.ui.register.onboard.FirstScreenFragment
+import team.getherfolg.capstone.ui.register.onboard.SecondScreenFragment
+import team.getherfolg.capstone.ui.register.onboard.ThirdScreenFragment
 
 class OnBoardPagerAdapter(fragmentManager: FragmentManager) :
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

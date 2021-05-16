@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">Capstone - Getherfolg Team</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="splash_title">Find !t</string>
     <string name="suitable">   Suitable</string>
     <string name="greet">Welcome to Suitable!</string>
     <string name="scan">Screening CV</string>
     <string name="article">Jobs Article</string>
     <string name="desc_login">You can login or sign up to find your job</string>
-    <string name="login">login</string>
-    <string name="sign_up">Sign up</string>
+    <string name="login">log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

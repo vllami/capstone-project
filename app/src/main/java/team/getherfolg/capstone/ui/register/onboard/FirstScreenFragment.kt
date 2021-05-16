@@ -1,4 +1,4 @@
-package team.getherfolg.capstone.ui.screen
+package team.getherfolg.capstone.ui.register.onboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

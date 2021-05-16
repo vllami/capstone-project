@@ -13,8 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CapstoneGetherfolgTeam"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.home.HomeActivity" />
-        <activity android:name=".ui.scan.ScanActivity" />
+        <activity android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.Main"/>
+        <activity
+            android:name=".ui.register.auth.SignUpActivity"
+            android:parentActivityName=".ui.register.auth.AuthenticationActivity" />
+        <activity
+            android:name=".ui.register.auth.LoginActivity"
+            android:parentActivityName=".ui.register.auth.AuthenticationActivity" />
+        <activity
+            android:name=".ui.register.auth.AuthenticationActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
