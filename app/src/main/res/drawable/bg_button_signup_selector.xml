@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_signup_selected"
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@integer/config_navAnimTime">
+    <item android:drawable="@drawable/bg_button_signup_selected"
         android:state_pressed="true" />
     <item android:drawable="@drawable/bg_button_singup_unselect" />
 </selector>

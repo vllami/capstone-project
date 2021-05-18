@@ -1,20 +1,19 @@
 package team.getherfolg.capstone.ui.register.auth
 
 import android.content.Intent
+import android.content.Intent.*
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import team.getherfolg.capstone.databinding.ActivityLoginBinding
 import team.getherfolg.capstone.ui.main.MainActivity
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLoginBinding
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,36 +23,52 @@ class LoginActivity : AppCompatActivity() {
         loginBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         mAuth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
 
-//        loginBinding.btnLogin.setOnClickListener {
-//            setLogin()
-//        }
-        loginBinding.btnLogin.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+        loginBinding.apply {
+            btnLogin.setOnClickListener {
+                val email = etEmail.text.toString().trim()
+                val password = etPassword.text.toString().trim()
+
+                when {
+                    email.isEmpty() -> {
+                        inputEmail.error = "Email must be filled"
+                        return@setOnClickListener
+                    }
+                    !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                        inputEmail.error = "Email is not valid"
+                        return@setOnClickListener
+                    }
+                    password.isEmpty() || password.length < 6 -> {
+                        inputPassword.error = "Minimum of password is 6 characters"
+                        return@setOnClickListener
+                    }
+                    else -> userLogIn(email, password)
+                }
+            }
         }
     }
 
-//    private fun setLogin() {
-//        val email = loginBinding.etEmail.text.toString()
-//        val password = loginBinding.etPassword.text.toString()
-//
-//        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-//            if (it.isSuccessful) {
-//                Toast.makeText(this, "Log in success", Toast.LENGTH_SHORT).show()
-//                authSuccesfull(email)
-//            } else {
-//                Toast.makeText(this, "Log in failed", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-//
-//    private fun authSuccesfull(email: String) {
-//        db.collection("users").whereEqualTo("E-mail", email).get()
-//            .addOnSuccessListener {
-//                Intent(this, MainActivity::class.java).also {
-//                    startActivity(it)
-//                }
-//            }
-//    }
+    private fun userLogIn(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    Intent(this, MainActivity::class.java).also { move ->
+                        move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(move)
+                    }
+                } else {
+                    Toast.makeText(this, "Email or password incorrect", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (mAuth.currentUser != null) {
+            Intent(this, MainActivity::class.java).also { move ->
+                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(move)
+            }
+        }
+    }
 }
