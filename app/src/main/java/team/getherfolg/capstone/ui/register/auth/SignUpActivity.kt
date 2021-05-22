@@ -25,10 +25,16 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBinding.apply {
             btnRegister.setOnClickListener {
+                val fullName = etFullName.text.toString().trim()
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
 
                 when {
+                    fullName.isEmpty() -> {
+                        etFullName.error = "You must fill the name"
+                        etFullName.requestFocus()
+                        return@setOnClickListener
+                    }
                     email.isEmpty() -> {
                         inputEmail.error = "Email must be filled"
                         return@setOnClickListener
@@ -59,15 +65,6 @@ class SignUpActivity : AppCompatActivity() {
                     Toast.makeText(this, "${it.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (mAuth.currentUser != null) {
-            Intent(this, LoginActivity::class.java).also { move ->
-                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(move)
-            }
-        }
+        finish()
     }
 }
