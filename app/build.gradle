@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "team.getherfolg.capstone"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -25,45 +25,62 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.10'
+    implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Theme
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.3.0'
+
+    // ConstraintLayout
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    // OverScroll Decor
+    implementation 'io.github.everythingme:overscroll-decor-android:1.1.1'
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // CircleIndicator
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    // AndroidPdfViewer
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    // File Loader
+    implementation 'com.github.kk121:File-Loader:1.2'
+
+    // Dexter - Simplifies the process of Requesting Permissions at Runtime
+    implementation 'com.karumi:dexter:6.2.2'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-firestore:23.0.0'
     implementation 'com.google.firebase:firebase-database:20.0.0'
+
+    // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    //nav
-    def nav_version = "2.3.5"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    //viewpager2
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation 'io.github.everythingme:overscroll-decor-android:1.1.1'
-
-    //indicator
-    implementation 'me.relex:circleindicator:2.1.6'
-
-    // firebase
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.firebase:firebase-firestore:23.0.0'
-
 }

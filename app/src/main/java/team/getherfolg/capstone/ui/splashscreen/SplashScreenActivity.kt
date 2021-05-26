@@ -1,30 +1,28 @@
 package team.getherfolg.capstone.ui.splashscreen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.WindowManager
-import team.getherfolg.capstone.R
-import team.getherfolg.capstone.ui.register.auth.AuthenticationActivity
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
+import team.getherfolg.capstone.R.layout
+import team.getherfolg.capstone.ui.authentication.AuthenticationActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val delay: Long = 3000L
+    companion object {
+        private const val SPLASH_SCREEN_DELAY = 3_000
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splashscreen)
+        setContentView(layout.activity_splashscreen)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
-        Handler(mainLooper).postDelayed({
-            Intent(this, AuthenticationActivity::class.java).also {
-                startActivity(it)
-            }
-        }, delay)
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this, AuthenticationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, SPLASH_SCREEN_DELAY.toLong())
     }
+
 }

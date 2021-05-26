@@ -7,12 +7,13 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/ic_notif_selector"
-        android:title="@string/notification" />
+        android:id="@+id/nav_mysaved"
+        android:icon="@drawable/ic_mysaved_selector"
+        android:title="@string/my_saved" />
 
     <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_profile_selector"
-        android:title="@string/profile" />
+        android:id="@+id/nav_article"
+        android:icon="@drawable/ic_activity_selector"
+        android:title="@string/article" />
+
 </menu>

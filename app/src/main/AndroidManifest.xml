@@ -4,6 +4,10 @@
     package="team.getherfolg.capstone">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,26 +15,34 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CapstoneGetherfolgTeam"
+        android:theme="@style/Theme.Capstone"
+        android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.Main"/>
         <activity
-            android:name=".ui.register.auth.SignUpActivity"
-            android:parentActivityName=".ui.register.auth.AuthenticationActivity" />
+            android:name=".ui.splashscreen.SplashScreenActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
         <activity
-            android:name=".ui.register.auth.LoginActivity"
-            android:parentActivityName=".ui.register.auth.AuthenticationActivity" />
-        <activity
-            android:name=".ui.register.auth.AuthenticationActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".ui.splashscreen.SplashScreenActivity">
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.authentication.AuthenticationActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
+        <activity
+            android:name=".ui.authentication.login.LogInActivity"
+            android:parentActivityName=".ui.authentication.AuthenticationActivity" />
+        <activity
+            android:name=".ui.authentication.signup.SignUpActivity"
+            android:parentActivityName=".ui.authentication.AuthenticationActivity" />
+        <activity
+            android:name=".ui.pdfpreview.PDFPreviewActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,22 +1,21 @@
 <resources>
-    <string name="app_name">Capstone - Getherfolg Team</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="suitable">   Suitable</string>
+    <string name="app_name">Suitable</string>
     <string name="greet">Welcome to Suitable!</string>
     <string name="scan">Screening CV</string>
-    <string name="article">Jobs Article</string>
-    <string name="desc_login">You can login or sign up to find your job</string>
-    <string name="login">log In</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="desc_onboarding_one">We can help you find job vacancies that match your abilities and experience.</string>
+    <string name="desc_onboarding_two">Upload your CV, then find a job that suits you.</string>
+    <string name="desc_onboarding_three">Job articles to add to your insight into the vacancies you wish to apply for.</string>
+    <string name="login">Log In</string>
+    <string name="sign_up">I’m new user, Sign Up</string>
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="home">Home</string>
-    <string name="notification">Notification</string>
-    <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="article">Article</string>
+    <string name="my_saved">My Saved</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_out">Log out</string>
     <string name="full_name">Full name</string>
+    <string name="desc_for_upload_cv">Please <b>upload your CV</b> in the\nbutton below, then Job Recommendations\nwill appear here!</string>
 </resources>
