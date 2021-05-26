@@ -8,17 +8,16 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="team.getherfolg.capstone.ui.main.home.HomeFragment"
-        android:label="Recommendation"
         tools:layout="@layout/fragment_home" />
+
     <fragment
-        android:id="@+id/nav_notification"
-        android:name="team.getherfolg.capstone.ui.main.notif.NotificationFragment"
-        android:label="Notification"
-        tools:layout="@layout/fragment_notification" />
+        android:id="@+id/nav_mysaved"
+        android:name="team.getherfolg.capstone.ui.main.mysaved.MySavedFragment"
+        tools:layout="@layout/fragment_my_saved" />
+
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="team.getherfolg.capstone.ui.main.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_article"
+        android:name="team.getherfolg.capstone.ui.main.article.ArticleFragment"
+        tools:layout="@layout/fragment_article" />
 
 </navigation>
