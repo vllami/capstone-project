@@ -26,16 +26,11 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBinding.apply {
             btnRegister.setOnClickListener {
-                val fullName = etFullName.text.toString().trim()
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
 
+
                 when {
-                    fullName.isEmpty() -> {
-                        etFullName.error = "You must fill the name"
-                        etFullName.requestFocus()
-                        return@setOnClickListener
-                    }
                     email.isEmpty() -> {
                         inputEmail.error = "Email must be filled"
                         return@setOnClickListener
@@ -48,24 +43,24 @@ class SignUpActivity : AppCompatActivity() {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> userSignUp(email, password)
+                    else -> register(email, password)
                 }
             }
         }
     }
 
-    private fun userSignUp(email: String, password: String) {
+    private fun register(email: String, password: String) {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) {
                 if (it.isSuccessful) {
+                    Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show()
                     Intent(this, LogInActivity::class.java).also { move ->
                         move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(move)
                     }
                 } else {
-                    Toast.makeText(this, "${it.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show()
                 }
             }
-        finish()
     }
 }

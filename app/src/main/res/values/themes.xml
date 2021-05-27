@@ -13,6 +13,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Capstone.NoActionBar2">
+        <item name="android:statusBarColor">@color/light_blue</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
     <style name="Theme.Capstone.FlickeringFragments">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:colorBackground">@color/white</item>

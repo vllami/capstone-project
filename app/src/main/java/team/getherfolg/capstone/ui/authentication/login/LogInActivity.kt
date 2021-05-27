@@ -54,21 +54,11 @@ class LogInActivity : AppCompatActivity() {
                 if (it.isSuccessful) {
                     Intent(this, MainActivity::class.java).also { move ->
                         move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(move)
+                        finish()
                     }
                 } else {
-                    Toast.makeText(this, "Email or password incorrect", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Log in Failed", Toast.LENGTH_SHORT).show()
                 }
             }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (mAuth.currentUser != null) {
-            Intent(this, MainActivity::class.java).also { move ->
-                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(move)
-            }
-        }
     }
 }

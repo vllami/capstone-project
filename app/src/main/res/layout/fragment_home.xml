@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_greet" />
 
     <TextView
         android:id="@+id/textView4"
@@ -25,24 +25,24 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/encodesans_medium"
-        android:text="Hello,"
+        android:text="Hi there.."
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tv_greet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/encodesans_bold"
-        android:text="Villa Mukti Indriyanto"
         android:textColor="@color/light_blue"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:text="Villa Mukti Indriyanto" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:src="@drawable/ic_profile"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_greet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
@@ -68,6 +68,7 @@
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="17dp"

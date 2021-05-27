@@ -9,6 +9,7 @@
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,10 +21,7 @@
         tools:ignore="AllowBackup">
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar">
+            android:theme="@style/Theme.Capstone.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,14 +29,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar">
+        </activity>
+        <activity
             android:name=".ui.authentication.AuthenticationActivity"
             android:launchMode="singleTop"
             android:theme="@style/Theme.Capstone.NoActionBar" />
         <activity
             android:name=".ui.authentication.login.LogInActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar2"
             android:parentActivityName=".ui.authentication.AuthenticationActivity" />
         <activity
             android:name=".ui.authentication.signup.SignUpActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar2"
             android:parentActivityName=".ui.authentication.AuthenticationActivity" />
         <activity
             android:name=".ui.pdfpreview.PDFPreviewActivity"
