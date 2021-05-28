@@ -12,9 +12,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -23,7 +22,6 @@ import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
 import team.getherfolg.capstone.R
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
-import team.getherfolg.capstone.ui.authentication.AuthenticationActivity
 import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
 import java.util.*
 import com.karumi.dexter.Dexter.withContext as dexterContext
@@ -84,53 +82,25 @@ class HomeFragment : Fragment() {
         if (activity != null) {
 
             mAuth = FirebaseAuth.getInstance()
+            val photo = mAuth.currentUser
+
+            if (photo?.photoUrl != null) {
+                Glide.with(this).load(photo.photoUrl).into(homeBinding.imageView)
+            } else {
+                Glide.with(this).load(R.drawable.ic_profile).into(homeBinding.imageView)
+            }
 
             // time
             calendar = Calendar.getInstance()
             when (calendar.get(Calendar.HOUR_OF_DAY)) {
-                in 0..11 -> homeBinding.tvGreet.text = "Good Moring"
+                in 0..11 -> homeBinding.tvGreet.text = "Good Morning"
                 in 12..17 -> homeBinding.tvGreet.text = "Good Afternoon"
                 in 18..20 -> homeBinding.tvGreet.text = "Good Evening"
                 in 21..24 -> homeBinding.tvGreet.text = "Good Night"
             }
 
-            // pop up menu
-            val popUpMenu = PopupMenu(context, homeBinding.imageView)
-            popUpMenu.inflate(R.menu.pop_up_menu)
-            popUpMenu.setOnMenuItemClickListener { menu ->
-                when (menu.itemId) {
-                    R.id.update_foto -> {
-                        Toast.makeText(requireContext(), "tes", Toast.LENGTH_SHORT).show()
-                        true
-                    }
-                    R.id.verif -> {
-                        Toast.makeText(requireContext(), "tes", Toast.LENGTH_SHORT).show()
-                        true
-                    }
-                    R.id.logout -> {
-                        mAuth.signOut()
-                        Intent(activity, AuthenticationActivity::class.java).also {
-                            startActivity(it)
-                        }
-                        true
-                    }
-                    else -> true
-                }
-            }
-
             homeBinding.imageView.setOnClickListener {
-                try {
-                    val popUp = PopupMenu::class.java.getDeclaredField("mPopUp")
-                    popUp.isAccessible = true
-                    val menu = popUp.get(popUpMenu)
-                    menu.javaClass
-                        .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                        .invoke(menu, true)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                } finally {
-                    popUpMenu.show()
-                }
+                startActivity(Intent(activity, ProfileActivity::class.java))
             }
         }
     }

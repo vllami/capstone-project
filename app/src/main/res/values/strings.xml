@@ -18,4 +18,6 @@
     <string name="log_out">Log out</string>
     <string name="full_name">Full name</string>
     <string name="desc_for_upload_cv">Please <b>upload your CV</b> in the\nbutton below, then Job Recommendations\nwill appear here!</string>
+    <string name="click_logo">Click icon to verified</string>
+    <string name="save">Save</string>
 </resources>

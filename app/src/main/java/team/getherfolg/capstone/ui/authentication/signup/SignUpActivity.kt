@@ -59,7 +59,7 @@ class SignUpActivity : AppCompatActivity() {
                         startActivity(move)
                     }
                 } else {
-                    Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Account Has Been created", Toast.LENGTH_SHORT).show()
                 }
             }
     }
