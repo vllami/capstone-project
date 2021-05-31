@@ -1,8 +1,9 @@
 package team.getherfolg.capstone.data.remote.response.login
 
-import com.google.gson.annotations.SerializedName
+import team.getherfolg.capstone.data.User
 
 data class LoginResponse(
-    @SerializedName("results")
-    val result: List<LoginRemote>
+    val error: Boolean,
+    val message: String,
+    val user: User
 )

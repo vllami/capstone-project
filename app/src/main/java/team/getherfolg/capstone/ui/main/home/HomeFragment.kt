@@ -24,8 +24,10 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
 import team.getherfolg.capstone.R
+import team.getherfolg.capstone.data.storage.SharedPrefManager
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
+import team.getherfolg.capstone.ui.authentication.login.LogInActivity
 import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
 import java.io.IOException
 import java.io.InputStream
@@ -39,7 +41,11 @@ class HomeFragment : Fragment() {
 
     private var encodedPDF: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         setHasOptionsMenu(true)
 
         homeBinding = inflate(layoutInflater, container, false)
@@ -121,7 +127,8 @@ class HomeFragment : Fragment() {
             val path: Uri? = data.data
 
             try {
-                val inputStream: InputStream? = path?.let { context?.contentResolver?.openInputStream(it) }
+                val inputStream: InputStream? =
+                    path?.let { context?.contentResolver?.openInputStream(it) }
                 val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
                 inputStream?.read(pdfInBytes)
                 encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
@@ -143,6 +150,17 @@ class HomeFragment : Fragment() {
 
     companion object {
         private const val CHOOSE_PDF_FILE = 1_000
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (!SharedPrefManager.getInstance(requireActivity()).isLoggedIn) {
+            Intent(activity, LogInActivity::class.java).also { move ->
+                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(move)
+            }
+        }
     }
 
 }

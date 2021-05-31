@@ -3,17 +3,20 @@ package team.getherfolg.capstone.ui.authentication.login
 import android.content.Intent
 import android.content.Intent.*
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import team.getherfolg.capstone.data.remote.response.login.LoginResponse
+import team.getherfolg.capstone.data.storage.SharedPrefManager
 import team.getherfolg.capstone.databinding.ActivityLogInBinding
+import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.main.MainActivity
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLogInBinding
-    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,42 +25,65 @@ class LogInActivity : AppCompatActivity() {
 
         loginBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        mAuth = FirebaseAuth.getInstance()
-
         loginBinding.apply {
             btnLogin.setOnClickListener {
-                val email = etEmail.text.toString().trim()
+                val username = etUsername.text.toString().trim()
                 val password = etPassword.text.toString().trim()
 
                 when {
-                    email.isEmpty() -> {
-                        inputEmail.error = "Email must be filled"
-                        return@setOnClickListener
-                    }
-                    !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                        inputEmail.error = "Email is not valid"
+                    username.isEmpty() -> {
+                        inputUsername.error = "Email must be filled"
                         return@setOnClickListener
                     }
                     password.isEmpty() || password.length < 6 -> {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> userLogIn(email, password)
+                    else -> userLogIn(username, password)
                 }
             }
         }
     }
 
-    private fun userLogIn(email: String, password: String) {
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) {
-                if (it.isSuccessful) {
-                    Intent(this, MainActivity::class.java).also { move ->
-                        move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+    private fun userLogIn(username: String, password: String) {
+        SuitableClient.getService().userLogin(username, password)
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if (!response.body()?.error!!) {
+                        SharedPrefManager.getInstance(applicationContext)
+                            .saveUser(response.body()?.user!!)
+
+                        Intent(applicationContext, MainActivity::class.java).also { move ->
+                            move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(move)
+                        }
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            response.body()?.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                } else {
-                    Toast.makeText(this, "Log in Failed", Toast.LENGTH_SHORT).show()
                 }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (SharedPrefManager.getInstance(this).isLoggedIn) {
+            Intent(applicationContext, MainActivity::class.java).also { move ->
+                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(move)
             }
+        }
     }
 }
