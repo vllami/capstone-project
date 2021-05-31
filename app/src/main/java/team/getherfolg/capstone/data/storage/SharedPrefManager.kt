@@ -9,7 +9,7 @@ class SharedPrefManager private constructor(private val context: Context) {
         get() {
             val sharedPreferences =
                 context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-            return sharedPreferences.getInt("id", -1) != 1
+            return sharedPreferences.getInt("id", -1) != -1
         }
 
     val user: User

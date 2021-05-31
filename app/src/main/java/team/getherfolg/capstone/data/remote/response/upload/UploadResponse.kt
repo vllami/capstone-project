@@ -1,8 +1,7 @@
 package team.getherfolg.capstone.data.remote.response.upload
 
-import com.google.gson.annotations.SerializedName
+import team.getherfolg.capstone.data.remote.response.ResultsCVScan
 
 data class UploadResponse(
-    @SerializedName("results")
-    val result: List<UploadRemote>
+    val results: List<ResultsCVScan>
 )

@@ -39,41 +39,42 @@ class LogInActivity : AppCompatActivity() {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> userLogIn(username, password)
+                    else -> SuitableClient.getService().userLogin(username, password)
+                        .enqueue(object : Callback<LoginResponse> {
+                            override fun onResponse(
+                                call: Call<LoginResponse>,
+                                response: Response<LoginResponse>
+                            ) {
+                                if (!response.body()?.error!!) {
+                                    SharedPrefManager.getInstance(applicationContext)
+                                        .saveUser(response.body()?.user!!)
+
+                                    Intent(
+                                        applicationContext,
+                                        MainActivity::class.java
+                                    ).also { move ->
+                                        move.flags =
+                                            FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                                        startActivity(move)
+                                    }
+                                } else {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        response.body()?.message,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                        })
                 }
             }
         }
-    }
-
-    private fun userLogIn(username: String, password: String) {
-        SuitableClient.getService().userLogin(username, password)
-            .enqueue(object : Callback<LoginResponse> {
-                override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>
-                ) {
-                    if (!response.body()?.error!!) {
-                        SharedPrefManager.getInstance(applicationContext)
-                            .saveUser(response.body()?.user!!)
-
-                        Intent(applicationContext, MainActivity::class.java).also { move ->
-                            move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(move)
-                        }
-                    } else {
-                        Toast.makeText(
-                            applicationContext,
-                            response.body()?.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-            })
     }
 
     override fun onStart() {

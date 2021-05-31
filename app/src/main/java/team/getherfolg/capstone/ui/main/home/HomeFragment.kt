@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.karumi.dexter.MultiplePermissionsReport
@@ -27,8 +28,10 @@ import team.getherfolg.capstone.R
 import team.getherfolg.capstone.data.storage.SharedPrefManager
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
+import team.getherfolg.capstone.ui.adapter.JobListAdapter
 import team.getherfolg.capstone.ui.authentication.login.LogInActivity
 import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
+import team.getherfolg.capstone.ui.viewModel.MainViewModel
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
@@ -38,8 +41,11 @@ import com.karumi.dexter.Dexter.withContext as dexterContext
 class HomeFragment : Fragment() {
 
     private lateinit var homeBinding: FragmentHomeBinding
+    private lateinit var adapter: JobListAdapter
+    private lateinit var viewModel: MainViewModel
 
     private var encodedPDF: String? = null
+    private var jobID: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,8 +69,8 @@ class HomeFragment : Fragment() {
                 ) {
                     super.onPermissionRationaleShouldBeShown(permissions, token)
                 }
-            })
 
+            })
         homeBinding.apply {
             btnChooseFile.setOnClickListener {
                 Intent(ACTION_GET_CONTENT).also {
@@ -76,16 +82,22 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-
             return root
         }
     }
+
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
+
+            viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            )[MainViewModel::class.java]
+
             homeBinding.apply {
                 with(imageView) {
                     FirebaseAuth.getInstance().currentUser.also {

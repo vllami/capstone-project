@@ -17,7 +17,7 @@ class SuitableClient {
                 .build()
 
             Retrofit()
-                .baseUrl("https://jobrec-ofah4hdyfa-et.a.run.app")
+                .baseUrl("http://jobrec-ofah4hdyfa-et.a.run.app/")
                 .addConverterFactory(create())
                 .client(okHttpClient)
                 .build().also {

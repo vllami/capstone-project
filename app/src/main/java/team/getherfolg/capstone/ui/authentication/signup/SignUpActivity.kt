@@ -28,14 +28,14 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBinding.apply {
             btnRegister.setOnClickListener {
-                val fullName = etFullName.text.toString().trim()
+                val fullname = etFullName.text.toString().trim()
                 val username = etUsername.text.toString().trim()
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
 
 
                 when {
-                    fullName.isEmpty() -> {
+                    fullname.isEmpty() -> {
                         etFullName.error = "Full name must be filled"
                         etFullName.requestFocus()
                         return@setOnClickListener
@@ -57,38 +57,36 @@ class SignUpActivity : AppCompatActivity() {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> register(fullName, username, email, password)
+                    else -> SuitableClient.getService()
+                        .createAccount(fullname, username, email, password)
+                        .enqueue(object : Callback<RegisterResponse> {
+                            override fun onResponse(
+                                call: Call<RegisterResponse>,
+                                response: Response<RegisterResponse>
+                            ) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    response.body()?.message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                        })
                 }
             }
         }
-    }
-
-    private fun register(fullName: String, username: String, email: String, password: String) {
-        SuitableClient.getService().createAccount(fullName, username, email, password)
-            .enqueue(object : Callback<RegisterResponse> {
-                override fun onResponse(
-                    call: Call<RegisterResponse>,
-                    response: Response<RegisterResponse>
-                ) {
-                    Toast.makeText(
-                        this@SignUpActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                    Toast.makeText(this@SignUpActivity, t.message, Toast.LENGTH_SHORT).show()
-                }
-
-            })
     }
 
     override fun onStart() {
         super.onStart()
 
         if (SharedPrefManager.getInstance(this).isLoggedIn) {
-            Intent(this, MainActivity::class.java).also { move ->
+            Intent(applicationContext, MainActivity::class.java).also { move ->
                 move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(move)
             }

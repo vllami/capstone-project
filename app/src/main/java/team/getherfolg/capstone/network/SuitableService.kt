@@ -16,34 +16,36 @@ import team.getherfolg.capstone.data.remote.response.upload.UploadResponse
 interface SuitableService {
 
     @FormUrlEncoded
-    @POST("/register")
+    @POST("register")
     fun createAccount(
         @Field("fullname") fullname: String,
-        @Field("username") username: String,
+        @Field("username")username: String,
         @Field("email") email: String,
-        @Field("pwd") password: String
+        @Field("pwd") pwd: String
     ): Call<RegisterResponse>
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("login")
     fun userLogin(
         @Field("username") username: String,
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @GET("/upload")
-    fun getChooseFile(): Call<UploadResponse>
+    @POST("upload")
+    fun getChooseFile(
+        @Field("id") id: Int
+    ): Call<UploadResponse>
 
-    @GET("/joblist")
+    @GET("joblist")
     fun getJobList(): Call<JobListResponse>
 
-    @GET("/profile")
+    @GET("profile")
     fun getProfile(): Call<ProfileResponse>
 
-    @GET("/deletepdf")
+    @GET("deletepdf")
     fun getDeletePDF(): Call<DeletePDFResponse>
 
-    @GET("/logout")
+    @GET("logout")
     fun getLogout(): Call<LogoutResponse>
 
 }
