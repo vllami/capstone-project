@@ -155,7 +155,7 @@ class HomeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if (!SharedPrefManager.getInstance(requireActivity()).isLoggedIn) {
+        if (!SharedPrefManager.getInstance(requireContext()).isLoggedIn) {
             Intent(activity, LogInActivity::class.java).also { move ->
                 move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(move)

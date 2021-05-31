@@ -13,14 +13,12 @@ import team.getherfolg.capstone.ui.authentication.signup.SignUpActivity
 class AuthenticationActivity : AppCompatActivity() {
 
     private lateinit var homeBinding: ActivityAuthenticationBinding
-    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeBinding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(homeBinding.root)
 
-        mAuth = FirebaseAuth.getInstance()
 
         setPager()
         homeBinding.apply {
@@ -43,16 +41,6 @@ class AuthenticationActivity : AppCompatActivity() {
             viewPager.adapter = pagerOnBoard
 
             tabsIndicator.setupWithViewPager(viewPager)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (mAuth.currentUser != null) {
-            Intent(this, MainActivity::class.java).also { move ->
-                move.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(move)
-            }
         }
     }
 }
