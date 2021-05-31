@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import team.getherfolg.capstone.data.remote.response.login.LoginRequest
 import team.getherfolg.capstone.data.remote.response.login.LoginResponse
-import team.getherfolg.capstone.data.storage.SharedPrefManager
 import team.getherfolg.capstone.databinding.ActivityLogInBinding
 import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.main.MainActivity
@@ -17,6 +17,7 @@ import team.getherfolg.capstone.ui.main.MainActivity
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLogInBinding
+    private lateinit var loginRequest: LoginRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,52 +40,37 @@ class LogInActivity : AppCompatActivity() {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> SuitableClient.getService().userLogin(username, password)
-                        .enqueue(object : Callback<LoginResponse> {
-                            override fun onResponse(
-                                call: Call<LoginResponse>,
-                                response: Response<LoginResponse>
-                            ) {
-                                if (!response.body()?.error!!) {
-                                    SharedPrefManager.getInstance(applicationContext)
-                                        .saveUser(response.body()?.user!!)
-
-                                    Intent(
-                                        applicationContext,
-                                        MainActivity::class.java
-                                    ).also { move ->
-                                        move.flags =
-                                            FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                                        startActivity(move)
-                                    }
-                                } else {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        response.body()?.message,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-
-                            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-
-                        })
+                    else -> loginUser(loginRequest)
                 }
             }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun loginUser(loginRequest: LoginRequest) {
+        SuitableClient.getService().userLogin(loginRequest)
+            .enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@LogInActivity, "Login Success", Toast.LENGTH_SHORT)
+                            .show()
 
-        if (SharedPrefManager.getInstance(this).isLoggedIn) {
-            Intent(applicationContext, MainActivity::class.java).also { move ->
-                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(move)
-            }
-        }
+                        Intent(this@LogInActivity, MainActivity::class.java).also {
+                            it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(it)
+                        }
+                    } else {
+                        Toast.makeText(this@LogInActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    Toast.makeText(this@LogInActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
     }
 }

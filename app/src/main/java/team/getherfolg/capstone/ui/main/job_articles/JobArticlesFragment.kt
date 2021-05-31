@@ -1,19 +1,17 @@
 package team.getherfolg.capstone.ui.main.job_articles
 
 import android.content.Intent
-import android.content.Intent.*
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.getInstance
 import team.getherfolg.capstone.R
-import team.getherfolg.capstone.databinding.FragmentJobArticlesBinding.inflate as FragmentJobArticlesBinding
 import team.getherfolg.capstone.ui.authentication.AuthenticationActivity
+import team.getherfolg.capstone.databinding.FragmentJobArticlesBinding.inflate as FragmentJobArticlesBinding
 
 class JobArticlesFragment : Fragment() {
 
-    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
@@ -26,7 +24,6 @@ class JobArticlesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firebaseAuth = getInstance()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -37,7 +34,6 @@ class JobArticlesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.logout -> {
-                firebaseAuth.signOut()
 
                 Intent(activity, AuthenticationActivity::class.java).also {
                     it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK

@@ -18,18 +18,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
-import team.getherfolg.capstone.R
-import team.getherfolg.capstone.data.storage.SharedPrefManager
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
 import team.getherfolg.capstone.ui.adapter.JobListAdapter
-import team.getherfolg.capstone.ui.authentication.login.LogInActivity
 import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
 import team.getherfolg.capstone.ui.viewModel.MainViewModel
 import java.io.IOException
@@ -100,18 +95,6 @@ class HomeFragment : Fragment() {
 
             homeBinding.apply {
                 with(imageView) {
-                    FirebaseAuth.getInstance().currentUser.also {
-                        when {
-                            it?.photoUrl != null -> Glide
-                                .with(this@HomeFragment)
-                                .load(it.photoUrl)
-                                .into(this)
-                            else -> Glide
-                                .with(this@HomeFragment)
-                                .load(R.drawable.ic_profile)
-                                .into(this)
-                        }
-                    }
 
                     setOnClickListener {
                         startActivity(Intent(activity, ProfileActivity::class.java))
@@ -162,17 +145,6 @@ class HomeFragment : Fragment() {
 
     companion object {
         private const val CHOOSE_PDF_FILE = 1_000
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (!SharedPrefManager.getInstance(requireContext()).isLoggedIn) {
-            Intent(activity, LogInActivity::class.java).also { move ->
-                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(move)
-            }
-        }
     }
 
 }

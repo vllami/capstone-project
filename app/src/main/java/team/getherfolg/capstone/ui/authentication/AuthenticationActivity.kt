@@ -3,11 +3,9 @@ package team.getherfolg.capstone.ui.authentication
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
 import team.getherfolg.capstone.databinding.ActivityAuthenticationBinding
-import team.getherfolg.capstone.ui.authentication.onboarding.OnboardingPagerAdapter
-import team.getherfolg.capstone.ui.main.MainActivity
 import team.getherfolg.capstone.ui.authentication.login.LogInActivity
+import team.getherfolg.capstone.ui.authentication.onboarding.OnboardingPagerAdapter
 import team.getherfolg.capstone.ui.authentication.signup.SignUpActivity
 
 class AuthenticationActivity : AppCompatActivity() {

@@ -9,15 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import team.getherfolg.capstone.data.remote.response.register.RegisterRequest
 import team.getherfolg.capstone.data.remote.response.register.RegisterResponse
-import team.getherfolg.capstone.data.storage.SharedPrefManager
 import team.getherfolg.capstone.databinding.ActivitySignUpBinding
 import team.getherfolg.capstone.network.SuitableClient
-import team.getherfolg.capstone.ui.main.MainActivity
+import team.getherfolg.capstone.ui.authentication.login.LogInActivity
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var signUpBinding: ActivitySignUpBinding
+    private lateinit var registerRequest: RegisterRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,6 @@ class SignUpActivity : AppCompatActivity() {
                 val username = etUsername.text.toString().trim()
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
-
 
                 when {
                     fullname.isEmpty() -> {
@@ -57,39 +57,39 @@ class SignUpActivity : AppCompatActivity() {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> SuitableClient.getService()
-                        .createAccount(fullname, username, email, password)
-                        .enqueue(object : Callback<RegisterResponse> {
-                            override fun onResponse(
-                                call: Call<RegisterResponse>,
-                                response: Response<RegisterResponse>
-                            ) {
-                                Toast.makeText(
-                                    applicationContext,
-                                    response.body()?.message,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-
-                            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-
-                        })
+                    else -> registerUser(registerRequest)
                 }
             }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun registerUser(registerRequest: RegisterRequest) {
+        SuitableClient.getService()
+            .createAccount(registerRequest)
+            .enqueue(object : Callback<RegisterResponse> {
+                override fun onResponse(
+                    call: Call<RegisterResponse>,
+                    response: Response<RegisterResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@SignUpActivity, "Register Success", Toast.LENGTH_SHORT)
+                            .show()
 
-        if (SharedPrefManager.getInstance(this).isLoggedIn) {
-            Intent(applicationContext, MainActivity::class.java).also { move ->
-                move.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(move)
-            }
-        }
+                        Intent(this@SignUpActivity, LogInActivity::class.java).also {
+                            it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(it)
+                        }
+                    } else {
+                        Toast.makeText(this@SignUpActivity, "Register Failed", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+
+                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    Toast.makeText(applicationContext, "Register Failed", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            })
     }
 }
