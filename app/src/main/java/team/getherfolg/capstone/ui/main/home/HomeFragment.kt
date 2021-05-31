@@ -8,10 +8,14 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.Intent.*
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
+import android.util.Base64.DEFAULT
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -23,24 +27,19 @@ import team.getherfolg.capstone.R
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
 import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
+import java.io.IOException
+import java.io.InputStream
 import java.util.*
 import com.karumi.dexter.Dexter.withContext as dexterContext
 
+
 class HomeFragment : Fragment() {
 
-    companion object {
-        private const val CHOOSE_PDF_FILE = 1_000
-    }
-
     private lateinit var homeBinding: FragmentHomeBinding
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var calendar: Calendar
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private var encodedPDF: String? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
 
         homeBinding = inflate(layoutInflater, container, false)
@@ -66,7 +65,8 @@ class HomeFragment : Fragment() {
                     it.apply {
                         type = "application/pdf"
                         addCategory(CATEGORY_OPENABLE)
-                        startActivityForResult(createChooser(this, ""), CHOOSE_PDF_FILE)
+                        createChooser(this, "")
+                        startActivityForResult(this, CHOOSE_PDF_FILE)
                     }
                 }
             }
@@ -80,27 +80,36 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
+            homeBinding.apply {
+                with(imageView) {
+                    FirebaseAuth.getInstance().currentUser.also {
+                        when {
+                            it?.photoUrl != null -> Glide
+                                .with(this@HomeFragment)
+                                .load(it.photoUrl)
+                                .into(this)
+                            else -> Glide
+                                .with(this@HomeFragment)
+                                .load(R.drawable.ic_profile)
+                                .into(this)
+                        }
+                    }
 
-            mAuth = FirebaseAuth.getInstance()
-            val photo = mAuth.currentUser
+                    setOnClickListener {
+                        startActivity(Intent(activity, ProfileActivity::class.java))
+                    }
+                }
 
-            if (photo?.photoUrl != null) {
-                Glide.with(this).load(photo.photoUrl).into(homeBinding.imageView)
-            } else {
-                Glide.with(this).load(R.drawable.ic_profile).into(homeBinding.imageView)
-            }
-
-            // time
-            calendar = Calendar.getInstance()
-            when (calendar.get(Calendar.HOUR_OF_DAY)) {
-                in 0..11 -> homeBinding.tvGreet.text = "Good Morning"
-                in 12..17 -> homeBinding.tvGreet.text = "Good Afternoon"
-                in 18..20 -> homeBinding.tvGreet.text = "Good Evening"
-                in 21..24 -> homeBinding.tvGreet.text = "Good Night"
-            }
-
-            homeBinding.imageView.setOnClickListener {
-                startActivity(Intent(activity, ProfileActivity::class.java))
+                Calendar.getInstance().also {
+                    tvGreet.apply {
+                        when (it.get(Calendar.HOUR_OF_DAY)) {
+                            in 0..11 -> text = "Good Morning!"
+                            in 11..18 -> text = "Good Afternoon"
+                            in 19..22 -> text = "Good Evening"
+                            in 22..24 -> text = "Good Night!"
+                        }
+                    }
+                }
             }
         }
     }
@@ -109,6 +118,19 @@ class HomeFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == CHOOSE_PDF_FILE && resultCode == RESULT_OK && data != null) {
+            val path: Uri? = data.data
+
+            try {
+                val inputStream: InputStream? = path?.let { context?.contentResolver?.openInputStream(it) }
+                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
+                inputStream?.read(pdfInBytes)
+                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
+
+                Toast.makeText(context, "Document Selected", Toast.LENGTH_SHORT).show()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
             Intent(context, PDFPreviewActivity::class.java).also {
                 it.apply {
                     putExtra("ViewType", "storage")
@@ -118,4 +140,9 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    companion object {
+        private const val CHOOSE_PDF_FILE = 1_000
+    }
+
 }

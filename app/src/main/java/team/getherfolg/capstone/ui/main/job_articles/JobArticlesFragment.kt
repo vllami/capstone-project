@@ -1,4 +1,4 @@
-package team.getherfolg.capstone.ui.main.article
+package team.getherfolg.capstone.ui.main.job_articles
 
 import android.content.Intent
 import android.content.Intent.*
@@ -8,17 +8,17 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.getInstance
 import team.getherfolg.capstone.R
-import team.getherfolg.capstone.databinding.FragmentArticleBinding.inflate as FragmentArticleBinding
+import team.getherfolg.capstone.databinding.FragmentJobArticlesBinding.inflate as FragmentJobArticlesBinding
 import team.getherfolg.capstone.ui.authentication.AuthenticationActivity
 
-class ArticleFragment : Fragment() {
+class JobArticlesFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
 
-        FragmentArticleBinding(layoutInflater, container, false).also {
+        FragmentJobArticlesBinding(layoutInflater, container, false).also {
             return it.root
         }
     }

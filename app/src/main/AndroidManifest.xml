@@ -18,11 +18,13 @@
         android:theme="@style/Theme.Capstone"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.main.home.ProfileActivity"
-            android:parentActivityName=".ui.main.MainActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar2"/>
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
             android:theme="@style/Theme.Capstone.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,10 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar"
-            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.authentication.AuthenticationActivity"
             android:launchMode="singleTop"
@@ -48,6 +46,9 @@
             android:theme="@style/Theme.Capstone.NoActionBar2" />
         <activity
             android:name=".ui.pdfpreview.PDFPreviewActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
+        <activity
+            android:name=".ui.main.home.ProfileActivity"
             android:theme="@style/Theme.Capstone.NoActionBar" />
     </application>
 

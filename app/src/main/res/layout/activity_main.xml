@@ -15,7 +15,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="@color/white"
-        android:paddingHorizontal="40dp"
+        android:paddingHorizontal="44dp"
         android:paddingTop="1.5dp"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="21dp"
