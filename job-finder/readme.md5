@@ -1,0 +1,17 @@
+
+https://jobrec-ofah4hdyfa-et.a.run.app
+
+/joblist => method get, menampilkan semua list pekerjaan
+
+/profile =>method get => menampilkan profile user ( fullname, address, phone ) 
+	   method put => edit profile user ( "fullname", "address", "phone" )
+
+/register => method POST => value json ( fullname, username, email, pwd)
+
+/login => metod POST => value json (username, password)
+
+/deletepdf => send get request terus pdfnya akan dihapus based on id
+
+/logout => send get request 
+
+/upload => send post request using form.body(di postman pake form body)
