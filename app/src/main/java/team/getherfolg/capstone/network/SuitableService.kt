@@ -5,26 +5,29 @@ import retrofit2.http.*
 import team.getherfolg.capstone.data.remote.response.delete_pdf.DeletePDFResponse
 import team.getherfolg.capstone.data.remote.response.job_list.JobListResponse
 import team.getherfolg.capstone.data.remote.response.login.LoginRequest
-import team.getherfolg.capstone.data.remote.response.login.LoginResponse
-import team.getherfolg.capstone.data.remote.response.logout.LogoutResponse
 import team.getherfolg.capstone.data.remote.response.profile.ProfileResponse
 import team.getherfolg.capstone.data.remote.response.register.RegisterRequest
-import team.getherfolg.capstone.data.remote.response.register.RegisterResponse
 import team.getherfolg.capstone.data.remote.response.upload.UploadResponse
 
 interface SuitableService {
 
-    @FormUrlEncoded
+    // register
     @POST("/register")
     fun createAccount(
         @Body registerRequest: RegisterRequest
-    ): Call<RegisterResponse>
+    ): Call<RegisterRequest>
 
-    @FormUrlEncoded
+    // login
     @POST("/login")
     fun userLogin(
         @Body loginRequest: LoginRequest
-    ): Call<LoginResponse>
+    ): Call<LoginRequest>
+
+    // log out
+    @GET("/logout")
+    fun userLogout(
+
+    )
 
     @POST("/upload")
     fun getChooseFile(
@@ -39,8 +42,5 @@ interface SuitableService {
 
     @GET("/deletepdf")
     fun getDeletePDF(): Call<DeletePDFResponse>
-
-    @GET("/logout")
-    fun getLogout(): Call<LogoutResponse>
 
 }

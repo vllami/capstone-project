@@ -9,7 +9,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import team.getherfolg.capstone.data.remote.response.login.LoginRequest
-import team.getherfolg.capstone.data.remote.response.login.LoginResponse
 import team.getherfolg.capstone.databinding.ActivityLogInBinding
 import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.main.MainActivity
@@ -17,7 +16,6 @@ import team.getherfolg.capstone.ui.main.MainActivity
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLogInBinding
-    private lateinit var loginRequest: LoginRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +38,10 @@ class LogInActivity : AppCompatActivity() {
                         inputPassword.error = "Minimum of password is 6 characters"
                         return@setOnClickListener
                     }
-                    else -> loginUser(loginRequest)
+                    else -> {
+                        val data = LoginRequest(username, password)
+                        loginUser(data)
+                    }
                 }
             }
         }
@@ -48,27 +49,25 @@ class LogInActivity : AppCompatActivity() {
 
     private fun loginUser(loginRequest: LoginRequest) {
         SuitableClient.getService().userLogin(loginRequest)
-            .enqueue(object : Callback<LoginResponse> {
+            .enqueue(object : Callback<LoginRequest> {
                 override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>
+                    call: Call<LoginRequest>,
+                    response: Response<LoginRequest>
                 ) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@LogInActivity, "Login Success", Toast.LENGTH_SHORT)
-                            .show()
+                    Toast.makeText(this@LogInActivity, "Login Success", Toast.LENGTH_SHORT)
+                        .show()
 
-                        Intent(this@LogInActivity, MainActivity::class.java).also {
-                            it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(it)
-                        }
-                    } else {
-                        Toast.makeText(this@LogInActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                    Intent(this@LogInActivity, MainActivity::class.java).also {
+                        it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(it)
                     }
                 }
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Toast.makeText(this@LogInActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                override fun onFailure(call: Call<LoginRequest>, t: Throwable) {
+                    Toast.makeText(this@LogInActivity, "Login Failed", Toast.LENGTH_SHORT)
+                        .show()
                 }
+
 
             })
 
