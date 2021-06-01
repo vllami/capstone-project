@@ -119,18 +119,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_upload"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_button_choose_file"
+        android:text="Upload"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/btn_choose_file"
+        app:layout_constraintStart_toStartOf="@+id/btn_choose_file"
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_file" />
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/encodesans_semibold"
         android:text="Which is now"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_choose_file" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_upload" />
 
     <TextView
         android:id="@+id/textView7"

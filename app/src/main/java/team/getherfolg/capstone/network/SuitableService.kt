@@ -1,7 +1,10 @@
 package team.getherfolg.capstone.network
 
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.GET
+import retrofit2.http.POST
 import team.getherfolg.capstone.data.remote.response.delete_pdf.DeletePDFResponse
 import team.getherfolg.capstone.data.remote.response.job_list.JobListResponse
 import team.getherfolg.capstone.data.remote.response.login.LoginRequest
@@ -25,13 +28,12 @@ interface SuitableService {
 
     // log out
     @GET("/logout")
-    fun userLogout(
+    fun userLogout(): Call<LoginRequest>
 
-    )
-
+    // upload
     @POST("/upload")
-    fun getChooseFile(
-        @Field("id") id: Int
+    fun sendFile(
+        @Field("dataupload") encodeData: String
     ): Call<UploadResponse>
 
     @GET("/joblist")

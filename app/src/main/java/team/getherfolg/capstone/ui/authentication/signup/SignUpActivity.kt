@@ -13,6 +13,7 @@ import team.getherfolg.capstone.data.remote.response.register.RegisterRequest
 import team.getherfolg.capstone.databinding.ActivitySignUpBinding
 import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.authentication.login.LogInActivity
+import team.getherfolg.capstone.ui.main.MainActivity
 
 class SignUpActivity : AppCompatActivity() {
 
