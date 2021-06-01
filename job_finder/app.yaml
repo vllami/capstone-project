@@ -1,1 +1,3 @@
 runtime: python38
+beta_settings:
+  cloud_sql_instances: jobfinder-demo:asia-southeast2:myjobfinder

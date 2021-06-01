@@ -1,8 +1,9 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.8-slim-buster
 
-EXPOSE 5000
-
+EXPOSE 8000
+ENV PORT 8000
+ENV HOST 0.0.0.0
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -22,4 +23,4 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "main:app"]
