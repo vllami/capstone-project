@@ -58,14 +58,11 @@ class HomeFragment : Fragment() {
                     super.onPermissionsChecked(report)
                 }
 
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>?,
-                    token: PermissionToken?
-                ) {
+                override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
                     super.onPermissionRationaleShouldBeShown(permissions, token)
                 }
-
             })
+
         homeBinding.apply {
             btnChooseFile.setOnClickListener {
                 Intent(ACTION_GET_CONTENT).also {
@@ -81,17 +78,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-
-            viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            )[MainViewModel::class.java]
+            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
 
             homeBinding.apply {
                 with(imageView) {
@@ -122,8 +114,7 @@ class HomeFragment : Fragment() {
             val path: Uri? = data.data
 
             try {
-                val inputStream: InputStream? =
-                    path?.let { context?.contentResolver?.openInputStream(it) }
+                val inputStream: InputStream? = path?.let { context?.contentResolver?.openInputStream(it) }
                 val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
                 inputStream?.read(pdfInBytes)
                 encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)

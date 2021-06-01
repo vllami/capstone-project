@@ -7,7 +7,7 @@ import team.getherfolg.capstone.data.remote.response.job_list.JobListResponse
 import team.getherfolg.capstone.data.remote.response.login.LoginRequest
 import team.getherfolg.capstone.data.remote.response.profile.ProfileResponse
 import team.getherfolg.capstone.data.remote.response.register.RegisterRequest
-import team.getherfolg.capstone.data.remote.response.upload.UploadResponse
+import team.getherfolg.capstone.data.remote.response.upload.UploadData
 
 interface SuitableService {
 
@@ -31,8 +31,8 @@ interface SuitableService {
 
     @POST("/upload")
     fun getChooseFile(
-        @Field("id") id: Int
-    ): Call<UploadResponse>
+        @Body dataUpload: UploadData
+    ): Call<UploadData>
 
     @GET("/joblist")
     fun getJobList(): Call<JobListResponse>
