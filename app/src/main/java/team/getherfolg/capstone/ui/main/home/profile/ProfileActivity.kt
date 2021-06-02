@@ -22,6 +22,8 @@ class ProfileActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
+        activityProfileBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
+
         activityProfileBinding.btnLogout.setOnClickListener {
             mAuth.signOut()
             Toast.makeText(this, "Log out Success", Toast.LENGTH_SHORT).show()
