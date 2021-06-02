@@ -12,8 +12,6 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="63dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:background="@color/white"
         android:paddingHorizontal="44dp"
         android:paddingTop="1.5dp"

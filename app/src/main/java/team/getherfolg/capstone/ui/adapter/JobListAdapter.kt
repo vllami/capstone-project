@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import team.getherfolg.capstone.data.entity.JobListEntity
-import team.getherfolg.capstone.databinding.ItemListJobBinding
+import team.getherfolg.capstone.databinding.ItemJobListBinding
 
 class JobListAdapter : RecyclerView.Adapter<JobListAdapter.JobListViewHolder>() {
     private val listJob = ArrayList<JobListEntity>()
@@ -15,7 +15,7 @@ class JobListAdapter : RecyclerView.Adapter<JobListAdapter.JobListViewHolder>() 
         this.listJob.addAll(listJob)
     }
 
-    inner class JobListViewHolder(private val binding: ItemListJobBinding) :
+    inner class JobListViewHolder(private val binding: ItemJobListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(job: JobListEntity) {
             with(binding) {
@@ -29,7 +29,7 @@ class JobListAdapter : RecyclerView.Adapter<JobListAdapter.JobListViewHolder>() 
         parent: ViewGroup,
         viewType: Int
     ): JobListAdapter.JobListViewHolder {
-        val view = ItemListJobBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemJobListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return JobListViewHolder(view)
     }
 

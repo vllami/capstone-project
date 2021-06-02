@@ -4,16 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.home.ProfileActivity">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/wave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rotate_wave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.main.home.profile.ProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,98 +12,159 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@null"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back" />
+        app:navigationIcon="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:fontFamily="@font/encodesans_medium"
+        android:paddingBottom="2dp"
+        android:text="@string/my_profile"
+        android:textColor="@color/dark_gray"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_profile"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="32dp"
-        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_unset_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wave" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <TextView
-        android:id="@+id/et_email"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/account"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:textSize="20sp"
-        android:hint="@string/e_mail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/verif_true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/encodesans_medium"
+        android:text="Account"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/encodesans_semibold"
+        android:text="Jhon Doe"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/image_profile"
+        app:layout_constraintStart_toStartOf="@+id/image_profile"
         app:layout_constraintTop_toBottomOf="@+id/image_profile" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/verif_true"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_email"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:src="@drawable/ic_verif_true"
-        app:layout_constraintBottom_toBottomOf="@+id/et_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/et_email" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/verif_false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_verif_false"
-        app:layout_constraintBottom_toBottomOf="@+id/verif_true"
-        app:layout_constraintEnd_toEndOf="@+id/verif_true"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/verif_true"
-        app:layout_constraintTop_toTopOf="@+id/verif_true"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_height="0dp"
+        android:fontFamily="@font/encodesans_light"
+        android:text="jhondoe@gmail.com"
+        android:textColor="@color/dark_gray"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_verif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/encodesans_medium"
-        android:text="@string/click_logo"
-        android:textColor="@color/red"
-        app:layout_constraintStart_toStartOf="@+id/verif_true"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+        android:id="@+id/btn_change_name"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="9dp"
+        android:background="?selectableItemBackground"
+        android:drawableStart="@drawable/ic_name"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:drawablePadding="16dp"
+        android:fontFamily="@font/encodesans_regular"
+        android:gravity="center"
+        android:paddingHorizontal="18dp"
+        android:text="@string/change_name"
+        android:textAlignment="viewStart"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account"
+        tools:ignore="RtlCompat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_change_email"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:background="?selectableItemBackground"
+        android:drawableStart="@drawable/ic_email"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:drawablePadding="16dp"
+        android:fontFamily="@font/encodesans_regular"
+        android:gravity="center"
+        android:paddingHorizontal="18dp"
+        android:text="@string/change_email"
+        android:textAlignment="viewStart"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_name"
+        tools:ignore="RtlCompat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_change_password"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:background="?selectableItemBackground"
+        android:drawableStart="@drawable/ic_password"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:drawablePadding="16dp"
+        android:fontFamily="@font/encodesans_regular"
+        android:gravity="center"
+        android:paddingHorizontal="18dp"
+        android:text="@string/change_password"
+        android:textAlignment="viewStart"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_email"
+        tools:ignore="RtlCompat" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_save"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/bg_button_login_selector"
-        android:fontFamily="@font/encodesans_medium"
-        android:text="@string/save"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/et_email"
-        app:layout_constraintStart_toStartOf="@+id/verif_true"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/bg_btn_logout"
         android:fontFamily="@font/encodesans_medium"
+        android:paddingBottom="1dp"
         android:text="@string/log_out"
-        android:textSize="18sp"
-        android:textColor="@color/dark_blue"
-        app:layout_constraintEnd_toEndOf="@+id/btn_save"
-        app:layout_constraintTop_toBottomOf="@+id/btn_save" />
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/app_version"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_forgot"
+    <TextView
+        android:id="@+id/app_version"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/encodesans_medium"
-        android:text="@string/forgot_password"
-        android:textColor="@color/dark_blue"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/btn_save"
-        app:layout_constraintTop_toBottomOf="@+id/btn_save" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:fontFamily="@font/encodesans_light"
+        android:text="@string/app_version"
+        android:textColor="@color/dark_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

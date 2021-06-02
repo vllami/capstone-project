@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import team.getherfolg.capstone.R
-import team.getherfolg.capstone.ui.authentication.AuthenticationActivity
+import team.getherfolg.capstone.ui.auth.AuthActivity
 import team.getherfolg.capstone.databinding.FragmentJobArticlesBinding.inflate as FragmentJobArticlesBinding
 
 class JobArticlesFragment : Fragment() {
@@ -35,7 +35,7 @@ class JobArticlesFragment : Fragment() {
         when(item.itemId) {
             R.id.logout -> {
 
-                Intent(activity, AuthenticationActivity::class.java).also {
+                Intent(activity, AuthActivity::class.java).also {
                     it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(it)
                 }

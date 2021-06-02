@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import team.getherfolg.capstone.R.layout
-import team.getherfolg.capstone.ui.authentication.AuthenticationActivity
+import team.getherfolg.capstone.ui.auth.AuthActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(layout.activity_splashscreen)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, AuthenticationActivity::class.java)
+            val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_SCREEN_DELAY.toLong())

@@ -1,24 +1,32 @@
 <resources>
     <string name="app_name">Suitable</string>
-    <string name="greet">Welcome to Suitable!</string>
-    <string name="scan">Screening CV</string>
-    <string name="desc_onboarding_one">We can help you find job vacancies that match your abilities and experience.</string>
-    <string name="desc_onboarding_two">Upload your CV, then find a job that suits you.</string>
-    <string name="desc_onboarding_three">Job articles to add to your insight into the vacancies you wish to apply for.</string>
-    <string name="login">Log In</string>
-    <string name="sign_up">I’m new user, Sign Up</string>
-    <string name="e_mail">E-mail</string>
-    <string name="password">Password</string>
-    <string name="register">Register</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="home">Home</string>
+    <string name="welcome_to_suitable">Welcome to Suitable!</string>
+    <string name="screening_cv">Screening CV</string>
     <string name="job_articles">Job Articles</string>
+    <string name="desc_onboarding_one">We can help you find job vacancies that match your abilities and experience.</string>
+    <string name="desc_onboarding_two">Upload your CV, then look for job vacancies that are suitable for you.</string>
+    <string name="desc_onboarding_three">Job articles to add to your insight into the vacancies you wish to apply for.</string>
+    <string name="login">Log in</string>
+    <string name="sign_up">I’m new user, Sign up</string>
+    <string name="full_name">Full Name <font fgcolor='#F44336'>*</font></string>
+    <string name="email">Email <font fgcolor='#F44336'>*</font></string>
+    <string name="password">Password <font fgcolor='#F44336'>*</font></string>
+    <string name="register">Register</string>
+    <string name="change_name">Change Name</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_password">Change Password</string>
+    <string name="home">Home</string>
     <string name="settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_out">Log out</string>
-    <string name="full_name">Full name</string>
     <string name="desc_for_upload_cv">Please <b>upload your CV</b> in the\nbutton below, then Job Recommendations\nwill appear here!</string>
-    <string name="click_logo">Click icon to verified</string>
+    <string name="choose_for_verification">This account has not been verified.</string>
     <string name="save">Save</string>
     <string name="username">Username</string>
+    <string name="sub_title_login">Enter your registered data to log in</string>
+    <string name="sub_title_register">Please fill in a few details below</string>
+    <string name="upload">Upload</string>
+    <string name="my_profile">My Profile</string>
+    <string name="app_version">Suitable v 0.0.1</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

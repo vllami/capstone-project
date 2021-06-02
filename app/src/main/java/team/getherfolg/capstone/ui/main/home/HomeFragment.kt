@@ -5,38 +5,25 @@ package team.getherfolg.capstone.ui.main.home
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.Intent.*
-import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
-import android.util.Base64.DEFAULT
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import team.getherfolg.capstone.data.remote.response.upload.UploadResponse
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
-import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.adapter.JobListAdapter
-import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
+import team.getherfolg.capstone.ui.main.home.profile.ProfileActivity
 import team.getherfolg.capstone.ui.viewModel.MainViewModel
-import java.io.IOException
-import java.io.InputStream
 import java.util.*
 import com.karumi.dexter.Dexter.withContext as dexterContext
-
 
 class HomeFragment : Fragment() {
 
@@ -115,51 +102,51 @@ class HomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CHOOSE_PDF_FILE && resultCode == RESULT_OK && data != null) {
-            val path: Uri? = data.data
-
-            try {
-                val inputStream: InputStream? = path?.let { context?.contentResolver?.openInputStream(it) }
-                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
-                inputStream?.read(pdfInBytes)
-                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
-
-                Toast.makeText(context, "Document Selected", Toast.LENGTH_SHORT).show()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            Intent(context, PDFPreviewActivity::class.java).also {
-                it.apply {
-                    putExtra("ViewType", "storage")
-                    putExtra("FileUri", data.data.toString())
-                    startActivity(this)
-                }
-            }
-
-            homeBinding.btnUpload.setOnClickListener {
-                val inputStream: InputStream? =
-                    path?.let { context?.contentResolver?.openInputStream(it) }
-                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
-                inputStream?.read(pdfInBytes)
-                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
-
-                SuitableClient.getService().sendFile(encodedPDF.toString())
-                    .enqueue(object : Callback<UploadResponse> {
-                        override fun onResponse(
-                            call: Call<UploadResponse>,
-                            response: Response<UploadResponse>
-                        ) {
-                            Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
-                        }
-
-                        override fun onFailure(call: Call<UploadResponse>, t: Throwable) {
-                            Toast.makeText(context, "Upload Failed", Toast.LENGTH_SHORT).show()
-                        }
-
-                    })
-            }
-        }
+//        if (requestCode == CHOOSE_PDF_FILE && resultCode == RESULT_OK && data != null) {
+//            val path: Uri? = data.data
+//
+//            try {
+//                val inputStream: InputStream? = path?.let { context?.contentResolver?.openInputStream(it) }
+//                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
+//                inputStream?.read(pdfInBytes)
+//                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
+//
+//                Toast.makeText(context, "Document Selected", Toast.LENGTH_SHORT).show()
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+//
+//            Intent(context, PDFPreviewActivity::class.java).also {
+//                it.apply {
+//                    putExtra("ViewType", "storage")
+//                    putExtra("FileUri", data.data.toString())
+//                    startActivity(this)
+//                }
+//            }
+//
+//            homeBinding.btnUpload.setOnClickListener {
+//                val inputStream: InputStream? =
+//                    path?.let { context?.contentResolver?.openInputStream(it) }
+//                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
+//                inputStream?.read(pdfInBytes)
+//                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
+//
+//                SuitableClient.getService().sendFile(encodedPDF.toString())
+//                    .enqueue(object : Callback<UploadResponse> {
+//                        override fun onResponse(
+//                            call: Call<UploadResponse>,
+//                            response: Response<UploadResponse>
+//                        ) {
+//                            Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                        override fun onFailure(call: Call<UploadResponse>, t: Throwable) {
+//                            Toast.makeText(context, "Upload Failed", Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                    })
+//            }
+//        }
     }
 
     companion object {
