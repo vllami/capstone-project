@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -90,6 +91,12 @@ dependencies {
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.7'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-database:20.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+    implementation 'com.google.firebase:firebase-firestore:23.0.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

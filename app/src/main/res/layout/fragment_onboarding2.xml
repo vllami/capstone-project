@@ -8,9 +8,10 @@
     <ImageView
         android:id="@+id/img_onboarding_two"
         android:layout_width="263dp"
-        android:layout_height="199dp"
-        android:layout_marginTop="133dp"
+        android:layout_height="169dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/img_onboarding_two"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

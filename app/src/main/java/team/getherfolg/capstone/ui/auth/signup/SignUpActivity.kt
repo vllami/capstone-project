@@ -1,29 +1,46 @@
 package team.getherfolg.capstone.ui.auth.signup
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.content.Intent.*
 import android.os.Bundle
+import android.transition.Explode
+import android.transition.Fade
+import android.transition.Slide
+import android.transition.Visibility
+import android.util.Log
 import android.util.Patterns
+import android.view.Gravity
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import team.getherfolg.capstone.data.remote.response.register.RegisterRequest
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import team.getherfolg.capstone.databinding.ActivitySignUpBinding
-import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.auth.login.LogInActivity
+import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var signUpBinding: ActivitySignUpBinding
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: FirebaseDatabase
+    private lateinit var fStore: FirebaseFirestore
+
+    private var userID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(signUpBinding.root)
 
+        mAuth = FirebaseAuth.getInstance()
+        fStore = FirebaseFirestore.getInstance()
+        db = FirebaseDatabase.getInstance()
+
         signUpBinding.apply {
+            toolbar.setNavigationOnClickListener { onBackPressed() }
             btnRegister.setOnClickListener {
                 val fullname = etFullName.text.toString().trim()
                 val email = etEmail.text.toString().trim()
@@ -48,35 +65,39 @@ class SignUpActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     else -> {
-                        val data = RegisterRequest(fullname, email, password)
-                        registerUser(data)
+                        registerUser(fullname, email, password)
                     }
                 }
             }
         }
     }
 
-    private fun registerUser(registerRequest: RegisterRequest) {
-        SuitableClient.getService()
-            .createAccount(registerRequest)
-            .enqueue(object : Callback<RegisterRequest> {
-                override fun onResponse(
-                    call: Call<RegisterRequest>,
-                    response: Response<RegisterRequest>
-                ) {
-                    Toast.makeText(this@SignUpActivity, "Register Success", Toast.LENGTH_SHORT)
-                        .show()
+    private fun registerUser(fullname: String, email: String, password: String) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show()
+                    userID = mAuth.currentUser?.uid
+                    val user = hashMapOf(
+                        "fullName" to fullname
+                    )
 
-                    Intent(this@SignUpActivity, LogInActivity::class.java).also {
-                        it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(it)
-                    }
+                    fStore.collection("users")
+                        .add(user)
+                        .addOnSuccessListener {
+                            Log.d("Register User", "Document added with ID: ${it.id}")
+                        }
+                        .addOnFailureListener {
+                            Log.w("Register User", "Error adding document ${it.message}")
+                        }
+                    startActivity(Intent(this, LogInActivity::class.java))
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Register failed, User has been registered",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-
-                override fun onFailure(call: Call<RegisterRequest>, t: Throwable) {
-                    Toast.makeText(this@SignUpActivity, "Register Failed", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
+            }
     }
 }

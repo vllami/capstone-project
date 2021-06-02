@@ -13,6 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
@@ -30,6 +33,12 @@ class HomeFragment : Fragment() {
     private lateinit var homeBinding: FragmentHomeBinding
     private lateinit var adapter: JobListAdapter
     private lateinit var viewModel: MainViewModel
+
+    private lateinit var user: FirebaseUser
+    private lateinit var reference: DatabaseReference
+    private lateinit var fStore: FirebaseFirestore
+
+    private var userID: String? = null
 
     private var encodedPDF: String? = null
     private var jobID: Int? = null
@@ -50,7 +59,10 @@ class HomeFragment : Fragment() {
                     super.onPermissionsChecked(report)
                 }
 
-                override fun onPermissionRationaleShouldBeShown(permissions: MutableList<PermissionRequest>?, token: PermissionToken?) {
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: MutableList<PermissionRequest>?,
+                    token: PermissionToken?
+                ) {
                     super.onPermissionRationaleShouldBeShown(permissions, token)
                 }
             })
@@ -74,8 +86,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fStore = FirebaseFirestore.getInstance()
+
+        fStore.collection("users")
+            .get()
+            .addOnSuccessListener {
+                for (doc in it) {
+                    homeBinding.tvGreetName.text = doc["fullName"].toString()
+                }
+            }
+
         if (activity != null) {
-            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+
+            viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            )[MainViewModel::class.java]
 
             homeBinding.apply {
                 with(imageView) {
@@ -89,64 +115,14 @@ class HomeFragment : Fragment() {
                     tvGreet.apply {
                         when (it.get(Calendar.HOUR_OF_DAY)) {
                             in 0..11 -> text = "Good Morning!"
-                            in 11..18 -> text = "Good Afternoon"
-                            in 19..22 -> text = "Good Evening"
+                            in 11..17 -> text = "Good Afternoon"
+                            in 18..22 -> text = "Good Evening"
                             in 22..24 -> text = "Good Night!"
                         }
                     }
                 }
             }
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-//        if (requestCode == CHOOSE_PDF_FILE && resultCode == RESULT_OK && data != null) {
-//            val path: Uri? = data.data
-//
-//            try {
-//                val inputStream: InputStream? = path?.let { context?.contentResolver?.openInputStream(it) }
-//                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
-//                inputStream?.read(pdfInBytes)
-//                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
-//
-//                Toast.makeText(context, "Document Selected", Toast.LENGTH_SHORT).show()
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//            }
-//
-//            Intent(context, PDFPreviewActivity::class.java).also {
-//                it.apply {
-//                    putExtra("ViewType", "storage")
-//                    putExtra("FileUri", data.data.toString())
-//                    startActivity(this)
-//                }
-//            }
-//
-//            homeBinding.btnUpload.setOnClickListener {
-//                val inputStream: InputStream? =
-//                    path?.let { context?.contentResolver?.openInputStream(it) }
-//                val pdfInBytes = inputStream?.available()?.let { ByteArray(it) }
-//                inputStream?.read(pdfInBytes)
-//                encodedPDF = Base64.encodeToString(pdfInBytes, DEFAULT)
-//
-//                SuitableClient.getService().sendFile(encodedPDF.toString())
-//                    .enqueue(object : Callback<UploadResponse> {
-//                        override fun onResponse(
-//                            call: Call<UploadResponse>,
-//                            response: Response<UploadResponse>
-//                        ) {
-//                            Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
-//                        }
-//
-//                        override fun onFailure(call: Call<UploadResponse>, t: Throwable) {
-//                            Toast.makeText(context, "Upload Failed", Toast.LENGTH_SHORT).show()
-//                        }
-//
-//                    })
-//            }
-//        }
     }
 
     companion object {

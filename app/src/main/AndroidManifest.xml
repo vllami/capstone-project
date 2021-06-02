@@ -37,11 +37,13 @@
         <activity
             android:name=".ui.auth.login.LogInActivity"
             android:parentActivityName=".ui.auth.AuthActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar" />
+            android:theme="@style/Theme.Capstone.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.auth.signup.SignUpActivity"
             android:parentActivityName=".ui.auth.AuthActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar" />
+            android:theme="@style/Theme.Capstone.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.pdfpreview.PDFPreviewActivity"
             android:theme="@style/Theme.Capstone.NoActionBar.PDFPreview" />

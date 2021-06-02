@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package team.getherfolg.capstone.ui.auth.onboarding
 
 import androidx.fragment.app.Fragment

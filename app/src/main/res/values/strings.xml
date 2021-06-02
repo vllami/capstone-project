@@ -29,4 +29,6 @@
     <string name="my_profile">My Profile</string>
     <string name="app_version">Suitable v 0.0.1</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="send">Send</string>
 </resources>

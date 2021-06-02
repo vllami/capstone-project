@@ -1,5 +1,6 @@
 package team.getherfolg.capstone.ui.splashscreen
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -20,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, AuthActivity::class.java)
-            startActivity(intent)
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
             finish()
         }, SPLASH_SCREEN_DELAY.toLong())
     }

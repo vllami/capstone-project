@@ -6,24 +6,28 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import team.getherfolg.capstone.data.remote.response.login.LoginRequest
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import team.getherfolg.capstone.databinding.ActivityLogInBinding
-import team.getherfolg.capstone.network.SuitableClient
 import team.getherfolg.capstone.ui.main.MainActivity
+import team.getherfolg.capstone.ui.main.home.profile.ChangePasswordActivity
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLogInBinding
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginBinding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(loginBinding.root)
 
+        mAuth = FirebaseAuth.getInstance()
+        db = FirebaseDatabase.getInstance()
+
         loginBinding.apply {
+            toolbar.setNavigationOnClickListener { onBackPressed() }
             btnLogin.setOnClickListener {
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
@@ -42,37 +46,41 @@ class LogInActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     else -> {
-                        val data = LoginRequest(email, password)
-                        loginUser(data)
+                        loginUser(email, password)
                     }
                 }
+            }
+            tvForgot.setOnClickListener {
+                startActivity(Intent(this@LogInActivity, ChangePasswordActivity::class.java))
             }
         }
     }
 
-    private fun loginUser(loginRequest: LoginRequest) {
-        SuitableClient.getService().userLogin(loginRequest)
-            .enqueue(object : Callback<LoginRequest> {
-                override fun onResponse(
-                    call: Call<LoginRequest>,
-                    response: Response<LoginRequest>
-                ) {
-                    Toast.makeText(this@LogInActivity, "Login Success", Toast.LENGTH_SHORT)
+    private fun loginUser(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val verif = mAuth.currentUser
+
+                    if (verif != null)
+                        when {
+                            verif.isEmailVerified -> {
+                                Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, MainActivity::class.java))
+                            }
+                            else -> {
+                                verif.sendEmailVerification()
+                                Toast.makeText(
+                                    this,
+                                    "Check your email to verification",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                } else {
+                    Toast.makeText(this, "Your email or password was wrong", Toast.LENGTH_SHORT)
                         .show()
-
-                    Intent(this@LogInActivity, MainActivity::class.java).also {
-                        it.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(it)
-                    }
                 }
-
-                override fun onFailure(call: Call<LoginRequest>, t: Throwable) {
-                    Toast.makeText(this@LogInActivity, "Login Failed", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-
-            })
-
+            }
     }
 }
