@@ -1,4 +1,4 @@
-package team.getherfolg.capstone.data.entity
+package team.getherfolg.capstone.data.job_list
 
 data class JobListEntity(
     val id: Int,

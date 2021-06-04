@@ -46,7 +46,7 @@
         android:layout_marginTop="36dp"
         android:fontFamily="@font/encodesans_medium"
         android:text="Account"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/light_blue"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_email" />
@@ -58,7 +58,7 @@
         android:layout_marginTop="18dp"
         android:fontFamily="@font/encodesans_semibold"
         android:text="Jhon Doe"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/light_blue"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="@+id/image_profile"
         app:layout_constraintStart_toStartOf="@+id/image_profile"
@@ -68,10 +68,11 @@
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginTop="4.5dp"
         android:fontFamily="@font/encodesans_light"
         android:text="jhondoe@gmail.com"
         android:textColor="@color/dark_gray"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tv_name"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -137,13 +138,73 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_change_email"
         tools:ignore="RtlCompat" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="9dp"
+        android:fontFamily="@font/encodesans_light"
+        android:text="@string/app_version"
+        android:textColor="@color/dark_gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_change_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/account" />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_logout"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginHorizontal="18dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="18dp"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn_logout">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/encodesans_medium"
+                android:paddingBottom="1dp"
+                android:text="@string/log_out"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sasa"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="18dp"
         android:background="@drawable/bg_btn_logout"
         android:fontFamily="@font/encodesans_medium"
         android:paddingBottom="1dp"
@@ -151,19 +212,7 @@
         android:textAllCaps="false"
         android:textColor="@color/red"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/app_version"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/app_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:fontFamily="@font/encodesans_light"
-        android:text="@string/app_version"
-        android:textColor="@color/dark_gray"
-        android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

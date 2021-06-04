@@ -23,11 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/encodesans_medium"
-        android:text="Hi, "
-        android:textColor="@color/dark_gray"
-        android:textSize="20sp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/encodesans_semibold"
+        android:text="Hi,"
+        android:textColor="@color/light_blue"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,22 +35,23 @@
         android:id="@+id/tv_greet_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/encodesans_medium"
-        android:textColor="@color/dark_gray"
-        android:textSize="20sp"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/encodesans_semibold"
+        android:textColor="@color/light_blue"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/greet"
         app:layout_constraintTop_toTopOf="@id/greet"
-        tools:text="Name"/>
+        tools:text="Name" />
 
     <TextView
         android:id="@+id/tv_greet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="3dp"
-        android:fontFamily="@font/encodesans_bold"
-        android:textColor="@color/light_blue"
-        android:textSize="20sp"
+        android:layout_marginTop="4.5dp"
+        android:fontFamily="@font/encodesans_regular"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_greet_name"
         tools:text="Good Morning" />
@@ -61,9 +62,9 @@
         android:layout_height="50dp"
         android:layout_marginEnd="18dp"
         android:src="@drawable/ic_profile"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_greet"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_greet_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -104,12 +105,22 @@
         android:lineSpacingExtra="4.5dp"
         android:text="@string/desc_for_upload_cv"
         android:textAlignment="center"
-        android:textColor="@color/gray"
+        android:textColor="@color/dark_gray"
         android:textSize="14sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_choose_file"
         app:layout_constraintEnd_toEndOf="@+id/btn_choose_file"
         app:layout_constraintStart_toStartOf="@+id/btn_choose_file"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -158,15 +169,5 @@
         app:layout_constraintStart_toStartOf="@+id/btn_upload"
         app:layout_constraintTop_toBottomOf="@+id/btn_upload"
         tools:text="Tes" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_job"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

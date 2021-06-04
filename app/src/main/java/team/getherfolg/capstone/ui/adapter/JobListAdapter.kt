@@ -3,7 +3,7 @@ package team.getherfolg.capstone.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import team.getherfolg.capstone.data.entity.JobListEntity
+import team.getherfolg.capstone.data.job_list.JobListEntity
 import team.getherfolg.capstone.databinding.ItemJobListBinding
 
 class JobListAdapter : RecyclerView.Adapter<JobListAdapter.JobListViewHolder>() {

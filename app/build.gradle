@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    // noinspection DifferentStdlibGradleVersion
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.10'
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -72,6 +73,9 @@ dependencies {
     // CircleIndicator
     implementation 'me.relex:circleindicator:2.1.6'
 
+    // Progress Button
+    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+
     // AndroidPdfViewer
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
@@ -88,7 +92,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
-    implementation 'com.karumi:dexter:5.0.0'
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.7'

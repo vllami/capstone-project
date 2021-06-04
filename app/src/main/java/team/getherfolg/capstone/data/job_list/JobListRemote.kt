@@ -1,8 +1,8 @@
-package team.getherfolg.capstone.data.entity
+package team.getherfolg.capstone.data.job_list
 
 import com.google.gson.annotations.SerializedName
 
-data class ProfileEntity(
+data class JobListRemote(
     @SerializedName("id")
     val id: Int,
     @SerializedName("poster_path")

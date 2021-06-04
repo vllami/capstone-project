@@ -1,4 +1,4 @@
-package team.getherfolg.capstone.network
+package team.getherfolg.capstone.networking
 
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level

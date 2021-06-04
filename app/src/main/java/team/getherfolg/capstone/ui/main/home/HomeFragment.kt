@@ -21,7 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
-import team.getherfolg.capstone.network.SuitableClient
+import team.getherfolg.capstone.networking.SuitableClient
 import team.getherfolg.capstone.ui.main.home.profile.ProfileActivity
 import java.io.InputStream
 import java.util.*
@@ -34,44 +34,11 @@ class HomeFragment : Fragment() {
 
     private var encodedPDF: String? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
 
         homeBinding = inflate(layoutInflater, container, false)
         return homeBinding.root
-
-//        dexterContext(context)
-//            .withPermissions(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)
-//            .withListener(object : BaseMultiplePermissionsListener() {
-//                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-//                    super.onPermissionsChecked(report)
-//                }
-//
-//                override fun onPermissionRationaleShouldBeShown(
-//                    permissions: MutableList<PermissionRequest>?,
-//                    token: PermissionToken?
-//                ) {
-//                    super.onPermissionRationaleShouldBeShown(permissions, token)
-//                }
-//            })
-//
-//        homeBinding.apply {
-//            btnChooseFile.setOnClickListener {
-//                Intent(ACTION_GET_CONTENT).also {
-//                    it.apply {
-//                        type = "application/pdf"
-//                        addCategory(CATEGORY_OPENABLE)
-//                        createChooser(this, "")
-//                        startActivityForResult(this, CHOOSE_PDF_FILE)
-//                    }
-//                }
-//            }
-//            return root
-//        }
     }
 
     @SuppressLint("SetTextI18n")

@@ -1,17 +1,12 @@
 package team.getherfolg.capstone.ui.auth.signup
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.content.Intent.*
 import android.os.Bundle
-import android.transition.Explode
-import android.transition.Fade
-import android.transition.Slide
-import android.transition.Visibility
 import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
-import android.view.Window
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +18,7 @@ import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var signUpBinding: ActivitySignUpBinding
+    private lateinit var activitySignUpBinding: ActivitySignUpBinding
     private lateinit var mAuth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
     private lateinit var fStore: FirebaseFirestore
@@ -32,16 +27,17 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        signUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(signUpBinding.root)
+        activitySignUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(activitySignUpBinding.root)
 
         mAuth = FirebaseAuth.getInstance()
         fStore = FirebaseFirestore.getInstance()
         db = FirebaseDatabase.getInstance()
 
-        signUpBinding.apply {
+        activitySignUpBinding.apply {
             toolbar.setNavigationOnClickListener { onBackPressed() }
             btnRegister.setOnClickListener {
+                showControl(false)
                 val fullname = etFullName.text.toString().trim()
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
@@ -54,18 +50,22 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     email.isEmpty() -> {
                         inputEmail.error = "Email must be filled"
+                        inputEmail.requestFocus()
                         return@setOnClickListener
                     }
                     !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                         inputEmail.error = "Email is not valid"
+                        inputEmail.requestFocus()
                         return@setOnClickListener
                     }
                     password.isEmpty() || password.length < 6 -> {
                         inputPassword.error = "Minimum of password is 6 characters"
+                        inputPassword.requestFocus()
                         return@setOnClickListener
                     }
                     else -> {
                         registerUser(fullname, email, password)
+                        showControl(true)
                     }
                 }
             }
@@ -76,7 +76,10 @@ class SignUpActivity : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show()
+                    val toast = Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.TOP, 0, 9)
+                    toast.show()
+
                     userID = mAuth.currentUser?.uid
                     val user = hashMapOf(
                         "fullName" to fullname
@@ -92,12 +95,26 @@ class SignUpActivity : AppCompatActivity() {
                         }
                     startActivity(Intent(this, LogInActivity::class.java))
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Register failed, User has been registered",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val toast = Toast.makeText(this, "This email has been registered", Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.TOP, 0, 9)
+                    toast.show()
+                    showControl(false)
                 }
             }
+    }
+
+    private fun showControl(state: Boolean) {
+        activitySignUpBinding.apply {
+            when {
+                state -> {
+                    progressBar.visibility = View.VISIBLE
+                    imgRegister.visibility = View.GONE
+                }
+                else -> {
+                    progressBar.visibility = View.GONE
+                    imgRegister.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

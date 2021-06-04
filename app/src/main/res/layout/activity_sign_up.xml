@@ -59,12 +59,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:cursorVisible="true"
             android:fontFamily="@font/encodesans_medium"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:textColor="@color/dark_gray"
-            android:textCursorDrawable="@null"
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,12 +88,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:cursorVisible="true"
             android:fontFamily="@font/encodesans_medium"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:textColor="@color/dark_gray"
-            android:textCursorDrawable="@null"
             android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,26 +116,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:cursorVisible="true"
             android:fontFamily="@font/encodesans_medium"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:singleLine="true"
             android:textColor="@color/dark_gray"
-            android:textCursorDrawable="@null"
             android:textSize="15sp"
             app:hintAnimationEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_register"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/bg_btn_oval"
-        android:src="@drawable/ic_arrow_in"
+        app:cardBackgroundColor="@color/light_blue"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_in"
+            tools:ignore="ContentDescription" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
