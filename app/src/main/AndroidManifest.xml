@@ -20,9 +20,6 @@
         tools:ignore="AllowBackup">
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
-            android:theme="@style/Theme.Capstone.NoActionBar" />
-        <activity
-            android:name=".ui.main.MainActivity"
             android:theme="@style/Theme.Capstone.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,17 +28,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.authentication.AuthenticationActivity"
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
             android:launchMode="singleTop"
             android:theme="@style/Theme.Capstone.NoActionBar" />
         <activity
-            android:name=".ui.authentication.login.LogInActivity"
-            android:parentActivityName=".ui.authentication.AuthenticationActivity" />
+            android:name=".ui.auth.login.LogInActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.authentication.signup.SignUpActivity"
-            android:parentActivityName=".ui.authentication.AuthenticationActivity" />
+            android:name=".ui.auth.signup.SignUpActivity"
+            android:parentActivityName=".ui.auth.AuthActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.pdfpreview.PDFPreviewActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar.PDFPreview" />
+        <activity
+            android:name=".ui.main.home.profile.ProfileActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
+        <activity
+            android:name=".ui.main.home.profile.ChangeEmailActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
+        <activity
+            android:name=".ui.main.home.profile.ChangeNameActivity"
+            android:theme="@style/Theme.Capstone.NoActionBar" />
+        <activity
+            android:name=".ui.main.home.profile.ChangePasswordActivity"
             android:theme="@style/Theme.Capstone.NoActionBar" />
     </application>
 

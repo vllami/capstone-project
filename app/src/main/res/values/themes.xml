@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/light_blue</item>
         <item name="colorPrimaryVariant">@color/light_blue</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/light_blue</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
@@ -11,6 +12,13 @@
     <style name="Theme.Capstone.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Capstone.NoActionBar.PDFPreview">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/light_blue</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.Capstone.FlickeringFragments">
@@ -28,6 +36,21 @@
         <item name="android:fontFamily">@font/encodesans_semibold</item>
         <item name="background">@null</item>
         <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="My.TextInputLayout.FilledBox.Padding" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">@style/MyThemeOverlayFilledPadding</item>
+    </style>
+
+    <style name="MyThemeOverlayFilledPadding">
+        <item name="editTextStyle">@style/MyTextInputEditText_filledBox_padding</item>
+    </style>
+
+    <style name="MyTextInputEditText_filledBox_padding" parent="@style/Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
     </style>
 
 </resources>

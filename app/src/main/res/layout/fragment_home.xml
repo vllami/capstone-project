@@ -16,61 +16,74 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_greet" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/greet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/encodesans_medium"
-        android:text="Hello,"
-        android:textColor="@color/dark_gray"
-        android:textSize="18sp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/encodesans_semibold"
+        android:text="Hi,"
+        android:textColor="@color/light_blue"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tv_greet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/encodesans_semibold"
+        android:textColor="@color/light_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/greet"
+        app:layout_constraintTop_toTopOf="@id/greet"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/tv_greet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="3dp"
-        android:fontFamily="@font/encodesans_bold"
-        android:text="Villa Mukti Indriyanto"
-        android:textColor="@color/light_blue"
-        android:textSize="18sp"
+        android:layout_marginTop="4.5dp"
+        android:fontFamily="@font/encodesans_regular"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_greet_name"
+        tools:text="Good Morning" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="18dp"
         android:src="@drawable/ic_profile"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="17dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="26dp"
         android:fontFamily="@font/encodesans_semibold"
-        android:text="Recommended Jobs"
+        android:text="Recommended jobs"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
+        android:layout_marginEnd="18dp"
         android:fontFamily="@font/encodesans_semibold"
         android:text="View All"
         android:textColor="@color/light_blue"
@@ -85,18 +98,29 @@
         android:layout_height="0dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/radius_white"
+        android:background="@drawable/bg_radius_white"
         android:fontFamily="@font/encodesans_light"
         android:gravity="center"
         android:letterSpacing="0.02"
         android:lineSpacingExtra="4.5dp"
         android:text="@string/desc_for_upload_cv"
         android:textAlignment="center"
-        android:textColor="@color/gray"
+        android:textColor="@color/dark_gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_choose_file"
         app:layout_constraintEnd_toEndOf="@+id/btn_choose_file"
         app:layout_constraintStart_toStartOf="@+id/btn_choose_file"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -105,8 +129,8 @@
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="252dp"
-        android:background="@drawable/bg_button_choose_file"
+        android:layout_marginTop="260dp"
+        android:background="@drawable/bg_btn_choose_file"
         android:fontFamily="@font/encodesans_medium"
         android:paddingBottom="1dp"
         android:text="Choose File (PDF)"
@@ -117,109 +141,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/radius_white"
-        android:gravity="center"
-        android:orientation="horizontal"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_upload"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_btn_choose_file"
+        android:text="Upload"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/btn_choose_file"
         app:layout_constraintStart_toStartOf="@+id/btn_choose_file"
-        app:layout_constraintTop_toBottomOf="@+id/btn_choose_file">
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_file" />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="12dp"
-            android:src="@drawable/ic_file" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="12dp">
-
-            <TextView
-                android:id="@+id/file_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="4.5dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/encodesans_medium"
-                android:letterSpacing="0.02"
-                android:maxLines="2"
-                android:text="CV.pdf"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
-                android:background="@color/white"
-                android:fontFamily="@font/encodesans_light"
-                android:letterSpacing="0.02"
-                android:text="/storage/emulated/0/FilePicker/CV.pdf"
-                android:textColor="@color/gray"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/result_upload"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/radius_white"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/btn_choose_file"
-        app:layout_constraintStart_toStartOf="@+id/btn_choose_file"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="12dp"
-            android:src="@drawable/ic_file" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="12dp">
-
-            <TextView
-                android:id="@+id/file_name2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="4.5dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/encodesans_medium"
-                android:letterSpacing="0.02"
-                android:maxLines="2"
-                android:text="CV-new.pdf"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
-                android:background="@color/white"
-                android:fontFamily="@font/encodesans_light"
-                android:letterSpacing="0.02"
-                android:text="/storage/emulated/0/FilePicker/CV-new.pdf"
-                android:textColor="@color/gray"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_marginTop="16dp"
+        android:drawablePadding="10dp"
+        android:gravity="center|start"
+        android:textColor="@color/dark_gray"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_pdf_file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btn_upload"
+        app:layout_constraintTop_toBottomOf="@+id/btn_upload"
+        tools:text="Tes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

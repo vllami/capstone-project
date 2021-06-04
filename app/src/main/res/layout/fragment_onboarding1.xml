@@ -3,45 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/img_onboarding_one"
         android:layout_width="243dp"
         android:layout_height="171dp"
-        android:layout_marginTop="153dp"
-        android:src="@drawable/ic_wellcome"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/img_onboarding_one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/tv_welcome_to_suitable"
+        android:id="@+id/title_onboarding_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="32dp"
         android:fontFamily="@font/encodesans_bold"
-        android:text="@string/greet"
-        android:textAlignment="center"
+        android:paddingHorizontal="18dp"
+        android:text="@string/welcome_to_suitable"
         android:textColor="@color/dark_gray"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_onboarding_one"
         tools:ignore="MissingConstraints" />
 
     <TextView
+        android:id="@+id/desc_onboarding_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="36dp"
         android:fontFamily="@font/encodesans_regular"
-        android:lineSpacingExtra="6dp"
+        android:lineSpacingExtra="4.5dp"
+        android:paddingHorizontal="18dp"
         android:text="@string/desc_onboarding_one"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_welcome_to_suitable" />
+        android:textColor="@color/dark_gray"
+        android:textSize="15.5sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_onboarding_one"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
