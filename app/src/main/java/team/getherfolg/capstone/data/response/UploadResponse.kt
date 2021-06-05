@@ -1,4 +1,4 @@
-package team.getherfolg.capstone.data.upload
+package team.getherfolg.capstone.data.response
 
 import com.google.gson.annotations.SerializedName
 

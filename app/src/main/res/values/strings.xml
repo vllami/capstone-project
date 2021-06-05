@@ -2,7 +2,7 @@
     <string name="app_name">Suitable</string>
     <string name="welcome_to_suitable">Welcome to Suitable!</string>
     <string name="screening_cv">Screening CV</string>
-    <string name="job_articles">Job Articles</string>
+    <string name="jobs">Jobs</string>
     <string name="desc_onboarding_one">We can help you find job vacancies that match your abilities and experience.</string>
     <string name="desc_onboarding_two">Upload your CV, then look for job vacancies that are suitable for you.</string>
     <string name="desc_onboarding_three">Job articles to add to your insight into the vacancies you wish to apply for.</string>

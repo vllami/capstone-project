@@ -3,6 +3,7 @@ package team.getherfolg.capstone.networking
 import com.squareup.okhttp.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import team.getherfolg.capstone.data.response.JobListResponse
 
 interface SuitableService {
 
@@ -11,5 +12,8 @@ interface SuitableService {
     fun uploadPDF(
         @Part("dataupload") dataupload: String?
     ): Call<ArrayList<RequestBody>>
+
+    @GET("/joblist")
+    fun getAllListJob(): Call<List<JobListResponse>>
 
 }

@@ -20,6 +20,7 @@
         app:itemRippleColor="@null"
         app:itemTextAppearanceActive="@style/Theme.Capstone.BottomNavigationActive"
         app:itemTextAppearanceInactive="@style/Theme.Capstone.BottomNavigationInactive"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
