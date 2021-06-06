@@ -22,7 +22,7 @@
     <string name="desc_for_upload_cv">Please <b>upload your CV</b> in the\nbutton below, then Job Recommendations\nwill appear here!</string>
     <string name="choose_for_verification">This account has not been verified.</string>
     <string name="save">Save</string>
-    <string name="username">Username</string>
+    <string name="username">Username <font fgcolor='#F44336'>*</font></string>
     <string name="sub_title_login">Enter your registered data to log in</string>
     <string name="sub_title_register">Please fill in a few details below</string>
     <string name="upload">Upload</string>

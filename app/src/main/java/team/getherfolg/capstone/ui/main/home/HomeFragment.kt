@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.okhttp.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,16 +24,18 @@ import team.getherfolg.capstone.networking.SuitableClient
 import team.getherfolg.capstone.ui.main.home.profile.ProfileActivity
 import java.io.InputStream
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeBinding: FragmentHomeBinding
-    private lateinit var fStore: FirebaseFirestore
 
     private var encodedPDF: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         setHasOptionsMenu(true)
 
         homeBinding = inflate(layoutInflater, container, false)
@@ -45,17 +46,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fStore = FirebaseFirestore.getInstance()
-
-        fStore.collection("users")
-            .get()
-            .addOnSuccessListener {
-                for (doc in it) {
-                    homeBinding.tvGreetName.text = doc["fullName"].toString()
-                }
-            }
-
         homeBinding.apply {
+
             with(imageView) {
 
                 setOnClickListener {

@@ -3,42 +3,39 @@ package team.getherfolg.capstone.ui.auth.signup
 import android.content.Intent
 import android.content.Intent.*
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import team.getherfolg.capstone.data.form.RegisterUserResponse
 import team.getherfolg.capstone.databinding.ActivitySignUpBinding
+import team.getherfolg.capstone.networking.SuitableClient
 import team.getherfolg.capstone.ui.auth.login.LogInActivity
+import team.getherfolg.capstone.ui.preference.Constant
+import team.getherfolg.capstone.ui.preference.PreferenceHelper
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var activitySignUpBinding: ActivitySignUpBinding
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: FirebaseDatabase
-    private lateinit var fStore: FirebaseFirestore
-
-    private var userID: String? = null
+    private lateinit var prefHelper: PreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activitySignUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(activitySignUpBinding.root)
 
-        mAuth = FirebaseAuth.getInstance()
-        fStore = FirebaseFirestore.getInstance()
-        db = FirebaseDatabase.getInstance()
+        prefHelper = PreferenceHelper(this)
 
         activitySignUpBinding.apply {
             toolbar.setNavigationOnClickListener { onBackPressed() }
             btnRegister.setOnClickListener {
                 showControl(false)
                 val fullname = etFullName.text.toString().trim()
+                val username = etUsername.text.toString().trim()
                 val email = etEmail.text.toString().trim()
                 val password = etPassword.text.toString().trim()
 
@@ -46,6 +43,11 @@ class SignUpActivity : AppCompatActivity() {
                     fullname.isEmpty() -> {
                         etFullName.error = "Full name must be filled"
                         etFullName.requestFocus()
+                        return@setOnClickListener
+                    }
+                    username.isEmpty() -> {
+                        etUsername.error = "Username must be filled"
+                        etUsername.requestFocus()
                         return@setOnClickListener
                     }
                     email.isEmpty() -> {
@@ -64,7 +66,8 @@ class SignUpActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     else -> {
-                        registerUser(fullname, email, password)
+                        val register = RegisterUserResponse(fullname, username, email, password)
+                        registerUser(register)
                         showControl(true)
                     }
                 }
@@ -72,37 +75,31 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(fullname: String, email: String, password: String) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val toast = Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.TOP, 0, 9)
-                    toast.show()
+    private fun registerUser(register: RegisterUserResponse) {
+        SuitableClient.getService().registerUser(register)
+            .enqueue(object : Callback<RegisterUserResponse> {
+                override fun onResponse(
+                    call: Call<RegisterUserResponse>,
+                    response: Response<RegisterUserResponse>
+                ) {
+                    Toast.makeText(this@SignUpActivity, "Register Success", Toast.LENGTH_SHORT)
+                        .show()
 
-                    userID = mAuth.currentUser?.uid
-                    val user = hashMapOf(
-                        "fullName" to fullname
-                    )
-
-                    fStore.collection("users")
-                        .add(user)
-                        .addOnSuccessListener {
-                            Log.d("Register User", "Document added with ID: ${it.id}")
-                        }
-                        .addOnFailureListener {
-                            Log.w("Register User", "Error adding document ${it.message}")
-                        }
-                    startActivity(Intent(this, LogInActivity::class.java))
-                } else {
-                    val toast = Toast.makeText(this, "This email has been registered", Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.TOP, 0, 9)
-                    toast.show()
-                    showControl(false)
+                    Intent(this@SignUpActivity, LogInActivity::class.java).also {
+                        it.flags = FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK
+                        startActivity(it)
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<RegisterUserResponse>, t: Throwable) {
+                    Toast.makeText(this@SignUpActivity, "Register Failed", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            })
     }
 
+    @Suppress("SameParameterValue")
     private fun showControl(state: Boolean) {
         activitySignUpBinding.apply {
             when {
