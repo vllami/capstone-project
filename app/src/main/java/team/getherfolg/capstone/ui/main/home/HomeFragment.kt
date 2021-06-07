@@ -1,33 +1,40 @@
-@file:Suppress("DEPRECATION")
-
 package team.getherfolg.capstone.ui.main.home
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.Intent.*
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.squareup.okhttp.RequestBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import team.getherfolg.capstone.data.JobListResultResponse
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
 import team.getherfolg.capstone.networking.SuitableClient
 import team.getherfolg.capstone.ui.main.home.profile.ProfileActivity
+import java.io.File
 import java.io.InputStream
 import java.util.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeBinding: FragmentHomeBinding
+    private var listFile: List<String> = listOf()
 
     private var encodedPDF: String? = null
 
@@ -42,6 +49,7 @@ class HomeFragment : Fragment() {
         return homeBinding.root
     }
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,45 +77,74 @@ class HomeFragment : Fragment() {
             false.pdfPick()
 
             btnChooseFile.setOnClickListener {
-                Intent(ACTION_GET_CONTENT).also {
-                    it.apply {
-                        type = "application/pdf"
-                        addCategory(CATEGORY_OPENABLE)
-                        createChooser(this, "")
-                        startActivityForResult(this, CHOOSE_PDF_FILE)
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    Intent(ACTION_GET_CONTENT).also {
+                        it.apply {
+                            type = "application/pdf"
+                            addCategory(CATEGORY_OPENABLE)
+                            createChooser(this, "")
+                            startActivityForResult(this, CHOOSE_PDF_FILE)
+                        }
                     }
                 }
+
             }
+
             btnUpload.setOnClickListener {
-                uploadDocument()
+                val file = File(encodedPDF)
+
+                val requestBody = RequestBody.create("mul".toMediaTypeOrNull(), file)
+                val fileToUpload =
+                    MultipartBody.Part.createFormData("cv", file.name, requestBody)
+
+                SuitableClient.getService().uploadPDF(fileToUpload)
+                    .enqueue(object : Callback<JobListResultResponse> {
+                        override fun onResponse(
+                            call: Call<JobListResultResponse>,
+                            response: Response<JobListResultResponse>
+                        ) {
+                            if (response.isSuccessful)
+                                Log.d("On Response: Success", response.toString())
+                            Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
+                        }
+
+                        override fun onFailure(call: Call<JobListResultResponse>, t: Throwable) {
+                            Log.e("Upload", "On Failed : ${t.message.toString()}")
+                        }
+
+                    })
             }
         }
 
     }
 
-    private fun uploadDocument() {
-        SuitableClient.getService().uploadPDF(encodedPDF)
-            .enqueue(object : Callback<ArrayList<RequestBody>> {
-                override fun onResponse(
-                    call: Call<ArrayList<RequestBody>>,
-                    response: Response<ArrayList<RequestBody>>
-                ) {
-                    Toast.makeText(activity, "Sending Success", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onFailure(call: Call<ArrayList<RequestBody>>, t: Throwable) {
-                    Toast.makeText(activity, "Sending Failed", Toast.LENGTH_SHORT).show()
-                }
-
-            })
-    }
-
-    @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == CHOOSE_PDF_FILE && resultCode == RESULT_OK && data != null) {
+//            if (ActivityCompat.checkSelfPermission(
+//                    requireContext(),
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                ) == PackageManager.PERMISSION_GRANTED
+//            ) {
+//                val uri = data.data
+////            val uriString = uri.toString()
+//
+//                val path: String? = FilePathFormUri.get(uri!!, requireActivity().contentResolver!!)
+//
+//                Log.d("onActivityResult: ", path!!)
+//
+//                val pdfName = "CV"
+//
+//                UploadAttachmentToServer(path, pdfName, requireContext()).uploadAttachment()
+//            }
+
             val path: Uri? = data.data
+
             try {
                 val inputStream: InputStream = activity?.contentResolver?.openInputStream(path!!)!!
                 val pdfInByte = ByteArray(inputStream.available())
