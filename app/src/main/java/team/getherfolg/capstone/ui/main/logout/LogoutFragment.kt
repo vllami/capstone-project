@@ -1,4 +1,4 @@
-package team.getherfolg.capstone.ui.main.profile
+package team.getherfolg.capstone.ui.main.logout
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,14 +10,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import team.getherfolg.capstone.data.form.LoginUserResponse
-import team.getherfolg.capstone.databinding.FragmentProfileBinding
+import team.getherfolg.capstone.databinding.FragmentLogoutBinding
 import team.getherfolg.capstone.networking.SuitableClient
 import team.getherfolg.capstone.ui.auth.AuthActivity
 import team.getherfolg.capstone.ui.preference.PreferenceHelper
 
-class ProfileFragment : Fragment() {
+class LogoutFragment : Fragment() {
 
-    private lateinit var profileBinding: FragmentProfileBinding
+    private lateinit var profileBinding: FragmentLogoutBinding
     private lateinit var prefHelper: PreferenceHelper
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        profileBinding = FragmentProfileBinding.inflate(layoutInflater, container, false)
+        profileBinding = FragmentLogoutBinding.inflate(layoutInflater, container, false)
         return profileBinding.root
     }
 

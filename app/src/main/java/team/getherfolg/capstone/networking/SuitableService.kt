@@ -1,13 +1,14 @@
 package team.getherfolg.capstone.networking
 
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.*
-import team.getherfolg.capstone.data.response.UploadResponse
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
 import team.getherfolg.capstone.data.form.LoginUserResponse
 import team.getherfolg.capstone.data.form.RegisterUserResponse
 import team.getherfolg.capstone.data.response.JobListResponse
+import team.getherfolg.capstone.data.response.UploadResponse
 
 interface SuitableService {
 
@@ -24,10 +25,9 @@ interface SuitableService {
     @GET("/logout")
     fun logoutUser(): Call<LoginUserResponse>
 
-    @Multipart
     @POST("/upload")
     fun upload(
-        @Body dataupload: RequestBody
+        @Body dataUpload: RequestBody
     ): Call<UploadResponse>
 
     @GET("/joblist")

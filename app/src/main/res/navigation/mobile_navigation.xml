@@ -16,8 +16,8 @@
         tools:layout="@layout/fragment_jobs" />
 
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="team.getherfolg.capstone.ui.main.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_logout"
+        android:name="team.getherfolg.capstone.ui.main.logout.LogoutFragment"
+        tools:layout="@layout/fragment_logout" />
 
 </navigation>

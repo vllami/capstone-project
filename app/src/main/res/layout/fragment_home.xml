@@ -25,23 +25,11 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="26dp"
         android:fontFamily="@font/encodesans_semibold"
-        android:text="Hi,"
+        android:text="Hello,"
         android:textColor="@color/light_blue"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_greet_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:fontFamily="@font/encodesans_semibold"
-        android:textColor="@color/light_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/greet"
-        app:layout_constraintTop_toTopOf="@id/greet"
-        tools:text="Name" />
 
     <TextView
         android:id="@+id/tv_greet"
@@ -51,9 +39,9 @@
         android:layout_marginTop="4.5dp"
         android:fontFamily="@font/encodesans_regular"
         android:textColor="@color/dark_gray"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_greet_name"
+        app:layout_constraintTop_toBottomOf="@+id/greet"
         tools:text="Good Morning" />
 
     <TextView

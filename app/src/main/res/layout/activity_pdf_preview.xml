@@ -17,18 +17,17 @@
         app:navigationIcon="@drawable/ic_arrow_back_white" />
 
     <TextView
-        android:id="@+id/tv_pdf_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:fontFamily="@font/encodesans_medium"
         android:paddingBottom="3dp"
+        android:text="@string/pdf_preview"
         android:textColor="@color/white"
         android:textSize="17.5sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        tools:text="CV.pdf" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_add"
