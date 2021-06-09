@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import team.getherfolg.capstone.data.AppPermissions
 import team.getherfolg.capstone.databinding.FragmentHomeBinding
 import team.getherfolg.capstone.databinding.FragmentHomeBinding.inflate
-import team.getherfolg.capstone.ui.main.home.profile.ProfileActivity
 import team.getherfolg.capstone.ui.pdfpreview.PDFPreviewActivity
 import team.getherfolg.capstone.ui.preference.Constant
 import java.io.File
@@ -47,12 +46,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         homeBinding.apply {
-
-            with(imageView) {
-                setOnClickListener {
-                    startActivity(Intent(activity, ProfileActivity::class.java))
-                }
-            }
 
             Calendar.getInstance().also {
                 tvGreet.apply {

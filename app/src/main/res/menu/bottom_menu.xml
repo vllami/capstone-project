@@ -12,8 +12,8 @@
         android:title="@string/jobs" />
 
     <item
-        android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_settings"
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
         android:title="@string/settings" />
 
 </menu>
