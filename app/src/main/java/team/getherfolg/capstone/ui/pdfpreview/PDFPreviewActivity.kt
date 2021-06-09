@@ -22,6 +22,7 @@ import com.shockwave.pdfium.PdfDocument
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,14 +34,15 @@ import team.getherfolg.capstone.networking.SuitableService
 import java.io.File
 import java.util.*
 
+
 class PDFPreviewActivity : AppCompatActivity(), OnPageChangeListener, OnLoadCompleteListener, OnPageErrorListener {
 
     private lateinit var activityPdfPreviewBinding: ActivityPdfPreviewBinding
 
     private var pageNumber = 0
     private var pdfFileName: String? = null
-    private var pdfView: PDFView? = null
-    private var pdfPath: String? = null
+    private val pdfView: PDFView? = null
+    private var pdfPath: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,74 +85,58 @@ class PDFPreviewActivity : AppCompatActivity(), OnPageChangeListener, OnLoadComp
                 } else {
                     showControl(true)
 
-                    val file = File(pdfPath!!)
-                    val requestBody: RequestBody = RequestBody.create("application/pdf".toMediaTypeOrNull(), file)
-                    val map: MutableMap<String, RequestBody> = HashMap<String, RequestBody>()
-                    val body = MultipartBody.Builder().setType(MultipartBody.FORM)
-                    val getResponse: SuitableService = SuitableClient.getService()
-                    val call: Call<UploadResponse> = getResponse.upload(body.build())
+                    val requestBody =
+                        MultipartBody.Builder().setType(MultipartBody.FORM)
+                    requestBody.addFormDataPart("dataupload", "", pdfPath!!.asRequestBody("application/pdf".toMediaTypeOrNull()))
 
-                    map["file\"; filename=\"" + file.name + "\""] = requestBody
-                    call.enqueue(object : Callback<UploadResponse?> {
-                        override fun onResponse(call: Call<UploadResponse?>?, response: Response<UploadResponse?>) {
-                            if (response.isSuccessful) {
-                                if (response.body() != null) {
-                                    showControl(false)
-                                    val serverResponse: UploadResponse = response.body()!!
-                                    Toast.makeText(
-                                        applicationContext,
-                                        serverResponse.toString(),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            } else {
-                                showControl(false)
-                                Toast.makeText(applicationContext, "problem image", Toast.LENGTH_SHORT)
-                                    .show()
+                    SuitableClient.getService().upload(requestBody.build())
+                        .enqueue(object : Callback<UploadResponse> {
+                            override fun onResponse(
+                                call: Call<UploadResponse>,
+                                response: Response<UploadResponse>
+                            ) {
+                                if (response.isSuccessful)
+                                    Log.d("On Response: Success", response.toString())
+                                Toast.makeText(this@PDFPreviewActivity, "Upload Success", Toast.LENGTH_SHORT).show()
                             }
-                        }
 
-                        override fun onFailure(call: Call<UploadResponse?>?, t: Throwable) {
-                            showControl(false)
-                            Log.v("Response gotten is", t.message!!)
-                            Toast.makeText(
-                                applicationContext,
-                                "problem uploading image " + t.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })
+                            override fun onFailure(
+                                call: Call<UploadResponse>,
+                                t: Throwable
+                            ) {
+                                Log.e("Upload", "On Failed : ${t.message.toString()}")
+                            }
+
+                        })
                 }
             }
         }
     }
-
     override fun onPageChanged(page: Int, pageCount: Int) {
         pageNumber = page
         title = String.format("%s %s / %s", pdfFileName, page + 1, pageCount)
     }
 
     override fun loadComplete(nbPages: Int) {
-        pdfView!!.documentMeta
+        pdfView?.documentMeta
 
-        printBookmarksTree(pdfView!!.tableOfContents, "-")
+        pdfView?.let { printBookmarksTree(it.tableOfContents, "-") }
     }
 
     override fun onPageError(page: Int, t: Throwable?) {
-        TODO("Not yet implemented")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            val path: String = data.data.toString()
-            val file = File(path)
+        if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
 
+            val path: String = data.toString()
+            val file = File(path)
+            pdfPath = file
             displayFromFile(file)
 
             Log.d("Path: ", path)
-            pdfPath = path
             Toast.makeText(this, "Picked file: $path", Toast.LENGTH_LONG).show()
         }
     }
@@ -169,15 +155,9 @@ class PDFPreviewActivity : AppCompatActivity(), OnPageChangeListener, OnLoadComp
         val uri = Uri.fromFile(File(file.absolutePath))
         pdfFileName = getFileName(uri)
 
-        pdfView!!.fromFile(file)
-            .defaultPage(pageNumber)
-            .onPageChange(this)
-            .enableAnnotationRendering(true)
-            .onLoad(this)
-            .scrollHandle(DefaultScrollHandle(this))
-            .spacing(10)
-            .onPageError(this)
-            .load()
+        pdfView?.fromFile(file)?.defaultPage(pageNumber)?.onPageChange(this)
+            ?.enableAnnotationRendering(true)?.onLoad(this)?.scrollHandle(DefaultScrollHandle(this))
+            ?.spacing(10)?.onPageError(this)?.load()
     }
 
     private fun getFileName(uri: Uri?): String? {
