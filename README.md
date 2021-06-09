@@ -32,3 +32,4 @@ The dataset could be downloaded from here: https://bit.ly/3vKsmSH
 ### Links <br />
 * The dataset could be downloaded from here: https://bit.ly/3vKsmSH
 * The drive directory contains the saved basline model, improvement model  etc could be downloaded from here: https://drive.google.com/drive/folders/113RBqGn2YrB5u7D7OT9X5y6uMLAfpvRI?usp=sharing
+* API Link : https://jobrec-ofah4hdyfa-et.a.run.app/joblist
