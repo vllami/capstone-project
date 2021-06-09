@@ -12,6 +12,7 @@ Villa Mukti Indriyanto - A1901910 <br />
 
 This application connects job seekers and job providers, by simply entering a resume, <br />
 the job vacancies that match the resume will be displayed, and applicants can easily apply. <br />
+We hope that this application can help job seekers to find the job they want. <br />
 
 We use CNN-LSTM algorithm with 100d GloVe pretrained words embedding for the machine <br />
 learning model.
