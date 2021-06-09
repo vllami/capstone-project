@@ -1,8 +1,7 @@
-package team.getherfolg.capstone.ui.viewModel
+package team.getherfolg.capstone.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-
 
 }

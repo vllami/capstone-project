@@ -2,24 +2,24 @@ package team.getherfolg.capstone.ui.auth.login
 
 import android.content.Intent
 import android.content.Intent.*
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Patterns
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import team.getherfolg.capstone.data.form.LoginUserResponse
 import team.getherfolg.capstone.databinding.ActivityLogInBinding
+import team.getherfolg.capstone.networking.SuitableClient
 import team.getherfolg.capstone.ui.main.MainActivity
-import team.getherfolg.capstone.ui.main.home.profile.ChangePasswordActivity
+import team.getherfolg.capstone.ui.preference.Constant
+import team.getherfolg.capstone.ui.preference.PreferenceHelper
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var activityLogInBinding: ActivityLogInBinding
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: FirebaseDatabase
+    private lateinit var prefHelper: PreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +27,7 @@ class LogInActivity : AppCompatActivity() {
         activityLogInBinding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(activityLogInBinding.root)
 
-        mAuth = FirebaseAuth.getInstance()
-        db = FirebaseDatabase.getInstance()
+        prefHelper = PreferenceHelper(this)
 
         activityLogInBinding.apply {
             toolbar.setNavigationOnClickListener {
@@ -37,18 +36,13 @@ class LogInActivity : AppCompatActivity() {
 
             btnLogin.setOnClickListener {
                 showControl(false)
-                val email = etEmail.text.toString().trim()
+                val username = etUsername.text.toString().trim()
                 val password = etPassword.text.toString().trim()
 
                 when {
-                    email.isEmpty() -> {
-                        inputEmail.error = "Email must be filled"
-                        inputEmail.requestFocus()
-                        return@setOnClickListener
-                    }
-                    !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                        inputEmail.error = "Please type the correct email format"
-                        inputEmail.requestFocus()
+                    username.isEmpty() -> {
+                        inputUsername.error = "Username must be filled"
+                        inputUsername.requestFocus()
                         return@setOnClickListener
                     }
                     password.isEmpty() || password.length < 6 -> {
@@ -57,52 +51,47 @@ class LogInActivity : AppCompatActivity() {
                         return@setOnClickListener
                     }
                     else -> {
-                        loginUser(email, password)
+                        saveSession()
+                        val loginUser = LoginUserResponse(username, password)
+                        userLogin(loginUser)
                         showControl(true)
                     }
                 }
-
-                when {
-                    email.isNotEmpty() -> inputEmail.error = null
-                    password.isNotEmpty() -> inputPassword.error = null
-                }
-            }
-
-            tvForgot.setOnClickListener {
-                startActivity(Intent(this@LogInActivity, ChangePasswordActivity::class.java))
             }
         }
     }
 
-    private fun loginUser(email: String, password: String) {
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val verif = mAuth.currentUser
+    private fun saveSession() {
+        prefHelper.putDataBoolean(Constant.PREF_IS_LOGIN, true)
+    }
 
-                    if (verif != null)
-                        when {
-                            verif.isEmailVerified -> {
-                                val toast = Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT)
-                                toast.setGravity(Gravity.TOP, 0, 9)
-                                toast.show()
-                                startActivity(Intent(this, MainActivity::class.java))
-                            }
-                            else -> {
-                                verif.sendEmailVerification()
-                                val toast = Toast.makeText(this, "Open your email for verification", Toast.LENGTH_LONG)
-                                toast.setGravity(Gravity.TOP, 0, 9)
-                                toast.show()
-                                showControl(false)
-                            }
-                        }
-                } else {
-                    val toast = Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.TOP, 0, 9)
-                    toast.show()
-                    showControl(false)
+    private fun userLogin(loginUser: LoginUserResponse) {
+        SuitableClient.getService().loginUser(loginUser)
+            .enqueue(object : Callback<LoginUserResponse> {
+                override fun onResponse(
+                    call: Call<LoginUserResponse>,
+                    response: Response<LoginUserResponse>
+                ) {
+                    Toast.makeText(
+                        this@LogInActivity,
+                        "Login Success",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Intent(this@LogInActivity, MainActivity::class.java).also {
+                        it.flags = FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK
+                        startActivity(it)
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<LoginUserResponse>, t: Throwable) {
+                    Toast.makeText(
+                        this@LogInActivity,
+                        "Username or password is wrong",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
     }
 
     private fun showControl(state: Boolean) {

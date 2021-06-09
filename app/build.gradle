@@ -70,20 +70,8 @@ dependencies {
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
-    // CircleIndicator
-    implementation 'me.relex:circleindicator:2.1.6'
-
-    // Progress Button
-    implementation 'br.com.simplepass:loading-button-android:2.2.0'
-
     // AndroidPdfViewer
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-
-    // File Loader
-    implementation 'com.github.kk121:File-Loader:1.2'
-
-    // Dexter - Simplifies the process of Requesting Permissions at Runtime
-    implementation 'com.karumi:dexter:6.2.2'
 
     // Material File Picker
     implementation 'com.nbsp:materialfilepicker:1.9.1'
