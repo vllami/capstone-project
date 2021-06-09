@@ -18,3 +18,13 @@ We use CNN-LSTM algorithm with 100d GloVe pretrained words embedding for the mac
 learning model.
 
 The dataset could be downloaded from here: https://bit.ly/3vKsmSH
+
+### Project Documentation <br />
+* Download the dataset, pre-process the data in colab or in your local notebook.
+* Shuffle and split the dataset to training and validation data.
+* Process the data (tokenizing, padding).
+* Train the model.
+* Evaluate the model.
+* Save the model to HDF5 format.
+* Deploy saved model on GCP by using by using Cloud Run
+* Build REST-API to integrate between ML model and android application.
