@@ -28,8 +28,6 @@ class ProfileActivity : AppCompatActivity() {
 
         prefHelper = PreferenceHelper(this)
 
-        activityProfileBinding.toolbar.setNavigationOnClickListener { onBackPressed() }
-
         activityProfileBinding.btnLogout.setOnClickListener {
             SuitableClient.getService().logoutUser().enqueue(object : Callback<LoginUserResponse> {
                 override fun onResponse(

@@ -1,8 +1,9 @@
 package team.getherfolg.capstone.data.response
 
 import com.google.gson.annotations.SerializedName
+import team.getherfolg.capstone.data.remote.UploadRemote
 
 data class UploadResponse(
-    @SerializedName("dataupload")
-    var dataUpload: String? = null
+	@SerializedName("UploadResponse")
+	val uploadResponse: List<UploadRemote?>? = null
 )

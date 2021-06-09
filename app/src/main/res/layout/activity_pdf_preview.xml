@@ -24,15 +24,36 @@
         android:fontFamily="@font/encodesans_medium"
         android:paddingBottom="3dp"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="17.5sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         tools:text="CV.pdf" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/btn_add"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/bg_btn_upload"
+        app:cardCornerRadius="9dp"
+        app:cardElevation="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/btn_upload"
+        app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+        <ImageView
+            android:id="@+id/img_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_add"
+            tools:ignore="ContentDescription" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_upload"
-        android:layout_width="81dp"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/bg_btn_upload"
@@ -49,15 +70,13 @@
             android:layout_gravity="center"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tv_upload"
+        <ImageView
+            android:id="@+id/img_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/encodesans_medium"
-            android:text="@string/upload"
-            android:textColor="@color/light_blue"
-            android:textSize="14sp" />
+            android:src="@drawable/ic_arrow_upload"
+            tools:ignore="ContentDescription" />
     </androidx.cardview.widget.CardView>
 
     <com.github.barteksc.pdfviewer.PDFView

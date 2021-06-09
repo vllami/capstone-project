@@ -12,6 +12,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import team.getherfolg.capstone.data.response.UploadResponse
 import team.getherfolg.capstone.networking.SuitableClient
 import java.io.File
 
@@ -30,32 +31,31 @@ class UploadAttachmentToServer(
         progressDialog = ProgressDialog(context)
         progressDialog.setMessage("Please wait")
 
-        if (filePath != null && filePath.isNotEmpty()) {
+        if (filePath.isNotEmpty()) {
             val file = File(filePath)
 
             val requestBody = RequestBody.create("/".toMediaTypeOrNull(), file)
-            val fileToUpload =
-                MultipartBody.Part.createFormData("cv", file.name, requestBody)
+            val fileToUpload = MultipartBody.Part.createFormData("cv", file.name, requestBody)
 //            val fileName: RequestBody = RequestBody.create(
 //                "text/plain".toMediaTypeOrNull(),
 //                pdfName
 //            )
 
-            SuitableClient.getService().uploadPDF(fileToUpload)
-                .enqueue(object : Callback<JobListResultResponse> {
-                    override fun onResponse(
-                        call: Call<JobListResultResponse>,
-                        response: Response<JobListResultResponse>
-                    ) {
-                        progressDialog.dismiss()
-                        Log.d("On Response: Success", response.toString())
-                        Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onFailure(call: Call<JobListResultResponse>, t: Throwable) {
-                        Log.e("Upload", "On Failed : ${t.message.toString()}")
-                    }
-                })
+//            SuitableClient.getService().upload(fileToUpload)
+//                .enqueue(object : Callback<UploadResponse> {
+//                    override fun onResponse(
+//                        call: Call<UploadResponse>,
+//                        response: Response<UploadResponse>
+//                    ) {
+//                        progressDialog.dismiss()
+//                        Log.d("On Response: Success", response.toString())
+//                        Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    override fun onFailure(call: Call<UploadResponse>, t: Throwable) {
+//                        Log.e("Upload", "On Failed : ${t.message.toString()}")
+//                    }
+//                })
         }
         return status
     }
