@@ -28,3 +28,7 @@ The dataset could be downloaded from here: https://bit.ly/3vKsmSH
 * Save the model to HDF5 format.
 * Deploy saved model on GCP by using by using Cloud Run
 * Build REST-API to integrate between ML model and android application.
+
+### Links <br />
+* The dataset could be downloaded from here: https://bit.ly/3vKsmSH
+* The drive directory contains the saved basline model, improvement model  etc could be downloaded from here: https://drive.google.com/drive/folders/113RBqGn2YrB5u7D7OT9X5y6uMLAfpvRI?usp=sharing
