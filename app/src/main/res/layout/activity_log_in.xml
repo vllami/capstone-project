@@ -4,16 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.authentication.login.LogInActivity">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/wave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rotate_wave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.auth.login.LogInActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,96 +12,130 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@null"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back" />
+        app:navigationIcon="@drawable/ic_arrow_back" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/login_tv"
+        android:id="@+id/title_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/encodesans_bold"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/encodesans_semibold"
         android:text="@string/login"
         android:textColor="@color/dark_gray"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wave" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/icon_log_in"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/ic_log_in"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="21sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sub_title_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/encodesans_regular"
+        android:text="@string/sub_title_login"
+        android:textColor="@color/dark_gray"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/title_login"
+        app:layout_constraintTop_toBottomOf="@+id/title_login" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/input_username"
+        style="@style/My.TextInputLayout.FilledBox.Padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/e_mail"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="18dp"
+        android:hint="@string/username"
+        app:boxCollapsedPaddingTop="0dp"
         app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_email"
+        app:expandedHintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon_log_in">
+        app:layout_constraintTop_toBottomOf="@+id/sub_title_login">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:cursorVisible="true"
+            android:fontFamily="@font/encodesans_medium"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/My.TextInputLayout.FilledBox.Padding"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="18dp"
         android:hint="@string/password"
+        app:boxCollapsedPaddingTop="0dp"
         app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="@+id/input_email"
-        app:layout_constraintStart_toStartOf="@+id/input_email"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
-        app:startIconDrawable="@drawable/ic_password">
+        app:expandedHintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/input_username"
+        app:layout_constraintStart_toStartOf="@+id/input_username"
+        app:layout_constraintTop_toBottomOf="@+id/input_username">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
+            android:background="@color/white"
+            android:cursorVisible="true"
+            android:fontFamily="@font/encodesans_medium"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"
+            app:hintAnimationEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_button_login_selector"
-        android:fontFamily="@font/encodesans_medium"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/input_password"
-        app:layout_constraintStart_toStartOf="@+id/input_password"
-        app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_forgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:fontFamily="@font/encodesans_regular"
         android:text="@string/forgot_password"
         android:textColor="@color/dark_gray"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/input_password"
+        app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_login"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="18dp"
+        app:cardBackgroundColor="@color/light_blue"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_arrow_in"
+            tools:ignore="ContentDescription" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
