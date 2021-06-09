@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Rekomendasi Berdasarkan CV</title>
+</head>
+<body>
+<style>
+ td {
+        width: 150px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 5px;
+      }
+</style>
+<table>
+  <thead>
+    <tr>
+        <th>Job Name</th>
+        <th>Company</th>
+        <th>Category</th>
+        <th>Job Detail</th>
+        <th>Open Date</th>
+        <th>End Date</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    </thead>    
+    <tbody>
+     {% for row in rows %}    
+            <tr>
+                <td>{{row.job_name}}</td>
+                <td>{{row.company_name}}</td>
+                <td>{{row.category_name}}</td>
+                <td>{{row.job_detail}}</td>
+                <td>{{row.create_on}}</td>
+                <td>{{row.expire_on}}</td>
+                <td>{{row.email}}</td>
+                <td>{{row.phone}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{{rows}}
+</body>
+</html>
