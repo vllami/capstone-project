@@ -39,3 +39,4 @@ learning model.
 ![alt text](https://github.com/vllami/capstone-project/blob/master/app%20preview/all.png?raw=true)
 
 ### Website Preview <br />
+![alt text](https://github.com/vllami/capstone-project/blob/master/web%20preview/Website.jpg?raw=true)
