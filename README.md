@@ -34,3 +34,8 @@ learning model.
 * API Link : https://jobrec-ofah4hdyfa-et.a.run.app/joblist
 * Website Link : https://job-finder-ofah4hdyfa-et.a.run.app/upload
 * Android Link : https://drive.google.com/file/d/1FzmFZRTmSy9DjxAUv4r8BmcyUeWX-iqG/view?usp=sharing
+
+### App Preview <br />
+![alt text](https://github.com/vllami/capstone-project/blob/master/app%20preview/all.png?raw=true)
+
+### Website Preview <br />
