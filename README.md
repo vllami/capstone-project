@@ -40,3 +40,6 @@ learning model.
 
 ### Website Preview <br />
 ![alt text](https://github.com/vllami/capstone-project/blob/master/web%20preview/Website.jpg?raw=true)
+
+> “There is no dependence that can be sure but a dependence upon yourself.” 
+> ― John Gay
