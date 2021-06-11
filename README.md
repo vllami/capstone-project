@@ -26,6 +26,7 @@ learning model.
 * Save the model to HDF5 format.
 * Deploy saved model on GCP by using by using Cloud Run
 * Build REST-API to integrate between ML model and android application.
+* Create the Android App
 
 ### Links <br />
 * The dataset could be downloaded from here: https://bit.ly/3vKsmSH
