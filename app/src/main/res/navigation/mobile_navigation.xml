@@ -11,13 +11,13 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_mysaved"
-        android:name="team.getherfolg.capstone.ui.main.mysaved.MySavedFragment"
-        tools:layout="@layout/fragment_my_saved" />
+        android:id="@+id/nav_jobs"
+        android:name="team.getherfolg.capstone.ui.main.jobs.JobsFragment"
+        tools:layout="@layout/fragment_jobs" />
 
     <fragment
-        android:id="@+id/nav_article"
-        android:name="team.getherfolg.capstone.ui.main.article.ArticleFragment"
-        tools:layout="@layout/fragment_article" />
+        android:id="@+id/nav_logout"
+        android:name="team.getherfolg.capstone.ui.main.logout.LogoutFragment"
+        tools:layout="@layout/fragment_logout" />
 
 </navigation>

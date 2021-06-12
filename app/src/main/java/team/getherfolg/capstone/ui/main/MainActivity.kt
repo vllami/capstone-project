@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import team.getherfolg.capstone.R
 import team.getherfolg.capstone.R.id
 import team.getherfolg.capstone.databinding.ActivityMainBinding
 import team.getherfolg.capstone.databinding.ActivityMainBinding.inflate
